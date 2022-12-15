@@ -1,5 +1,7 @@
 package freelance.domain.models.objetValue;
 
+import freelance.domain.exception.DomainException;
+
 public record Bic (String value) {
    public static int BIC8_LENGTH=8;
     public static int BIC11_LENGTH=11;
@@ -7,7 +9,7 @@ public record Bic (String value) {
         if(notContainNumericChar(value) && (value.length()==BIC8_LENGTH || value.length()==BIC11_LENGTH)){
             this.value=value.toUpperCase();
         }else {
-            throw  new IllegalArgumentException("you provide invalid bic ");
+            throw  new DomainException("you provide invalid bic ");
         }
 
     }

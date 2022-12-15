@@ -1,12 +1,13 @@
 package freelance.domain.models.objetValue;
 
+import freelance.domain.exception.DomainException;
 public record CleRib(String value) {
     public static int cleRibNumberOfDigit=2;
     public CleRib(String value) {
         if (isNumeric(value) && value.length() == cleRibNumberOfDigit) {
             this.value = value.toUpperCase();
         } else {
-            throw new IllegalArgumentException("you provide invalid bic ");
+            throw new DomainException("you provide invalid cle value ");
         }
     }
 

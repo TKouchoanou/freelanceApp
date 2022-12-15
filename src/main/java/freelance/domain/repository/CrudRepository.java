@@ -1,4 +1,4 @@
-package freelance.domain.models.repository;
+package freelance.domain.repository;
 
 import java.util.List;
 import java.util.Optional;

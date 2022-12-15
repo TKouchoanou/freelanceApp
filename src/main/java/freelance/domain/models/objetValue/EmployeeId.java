@@ -1,4 +1,4 @@
 package freelance.domain.models.objetValue;
 
-public record RibId(Long value) {
+public record EmployeeId(Long value) {
 }

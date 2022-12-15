@@ -1,5 +1,6 @@
 package freelance.domain.models.objetValue;
 
+import freelance.domain.exception.DomainException;
 import org.apache.commons.validator.routines.IBANValidator;
 
 public record Iban(String value) {
@@ -9,7 +10,7 @@ public record Iban(String value) {
      if(ibanValidator.isValid(value)){
          this.value=value;
      }else {
-         throw  new IllegalArgumentException("you provide invalid iban ");
+         throw  new DomainException("you provide invalid iban ");
      }
     }
 
