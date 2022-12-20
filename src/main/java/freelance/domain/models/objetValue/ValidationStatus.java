@@ -17,8 +17,11 @@ public enum ValidationStatus {
     public boolean isNotValidate(){
         return !this.equals(VALIDATE);
     }
-    public boolean isAfter(ValidationStatus validationStatus){
-        return this.customCompareTo(validationStatus) >0;
+    public boolean isAfterOrEqual(ValidationStatus validationStatus){
+        return this.customCompareTo(validationStatus) >=0;
+    }
+    public boolean isBefore(ValidationStatus validationStatus){
+        return this.customCompareTo(validationStatus) <0;
     }
     public int customCompareTo(ValidationStatus validationStatus){
         return this.code-validationStatus.code;

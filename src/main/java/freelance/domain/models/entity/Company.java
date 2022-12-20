@@ -1,15 +1,18 @@
 package freelance.domain.models.entity;
 
-import freelance.domain.models.objetValue.CompanyId;
-import freelance.domain.models.objetValue.EmployeeId;
-import freelance.domain.models.objetValue.RibId;
+import freelance.domain.exception.DomainException;
+import freelance.domain.models.objetValue.*;
+import freelance.domain.security.Auth;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Company extends Auditable {
+public class Company extends Auditable implements Rib.RibUser {
     CompanyId id;
     String name;
     RibId ribId;
+    Set<BillingId> billingIds=new HashSet<>();
 
     public Company(CompanyId id, String name,RibId ribId,LocalDateTime createdDate, LocalDateTime updatedDate) {
         super(createdDate, updatedDate);
@@ -30,12 +33,24 @@ public class Company extends Auditable {
        return this.ribId==rib.getId();
     }
 
-    public void changeRib(Rib rib){
-
+    public void changeRib(Rib rib, Auth auth){
+      if(auth.hasNoneOfRoles(EmployeeRole.ADMIN,EmployeeRole.HUMAN_RESOURCE)){
+          throw new DomainException("can not perform this action");
+      }
+      this.ribId=rib.getId();
     }
-
+   public boolean isOwnerOf(Billing billing){
+       return this.billingIds.stream().anyMatch(b->b.equals(billing.getId()));
+    }
+    public boolean isCurrentRib(Rib rib){
+        return rib!=null && ribId==rib.getId();
+    }
 
     public CompanyId getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -11,7 +11,6 @@ public record Bic (String value) {
         }else {
             throw  new DomainException("you provide invalid bic ");
         }
-
     }
     private boolean notContainNumericChar(String value) {
         for (char c : value.toCharArray()) {

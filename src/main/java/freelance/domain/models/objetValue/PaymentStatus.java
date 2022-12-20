@@ -18,8 +18,11 @@ public enum PaymentStatus{
     public int customCompareTo(PaymentStatus paymentStatus){
        return this.code-paymentStatus.code;
     }
-    public boolean isAfter(PaymentStatus paymentStatus){
-        return customCompareTo(paymentStatus)>0;
+    public boolean isAfterOrEqual(PaymentStatus paymentStatus){
+        return customCompareTo(paymentStatus)>=0;
+    }
+    public boolean isBefore(PaymentStatus paymentStatus){
+        return customCompareTo(paymentStatus)<0;
     }
 
 }
