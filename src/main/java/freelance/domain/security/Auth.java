@@ -9,7 +9,7 @@ import freelance.domain.models.objetValue.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
+//must be moved in use case if we decided to implement authorisatison rule in use case
 public final class Auth {
  // le current user est un Auth et un Auth est unique dans l'application
  // imaginer qu'un use case travail sur les users, si le currentUser est un User il peut passer n'importe quel user qui se ferra passer pour le current user

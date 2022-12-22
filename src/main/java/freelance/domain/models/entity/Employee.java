@@ -6,6 +6,7 @@ import freelance.domain.models.objetValue.EmployeeRole;
 import freelance.domain.models.objetValue.Profile;
 import freelance.domain.models.objetValue.UserId;
 import freelance.domain.security.Auth;
+import jakarta.annotation.Nonnull;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -16,10 +17,15 @@ public class Employee extends Auditable{
     UserId userId;
     Set<EmployeeRole> employeeRoles;
 
-    public Employee(EmployeeId employeeId, UserId userId,LocalDateTime createdDate, LocalDateTime updatedDate) {
+    public Employee(@Nonnull EmployeeId employeeId, UserId userId, LocalDateTime createdDate, LocalDateTime updatedDate) {
         super(createdDate, updatedDate);
         this.userId = userId;
         this.id=employeeId;
+    }
+    public Employee(User user,LocalDateTime createdDate, LocalDateTime updatedDate) {
+        super(createdDate, updatedDate);
+        this.userId = user.getId();
+        user.addEmployeeProfile(this);
     }
     public Employee(UserId userId) {
         this.userId = userId;

@@ -2,6 +2,7 @@ package freelance.domain.models.entity;
 
 import freelance.domain.exception.DomainException;
 import freelance.domain.models.objetValue.*;
+import jakarta.annotation.Nonnull;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -14,13 +15,18 @@ public class Freelance extends Auditable implements Rib.RibUser {
     CompanyId companyId;
     Set<BillingId> billingIds=new HashSet<>();
 
-    public Freelance(FreelanceId id, UserId userId, RibId ribId,LocalDateTime createdDate, LocalDateTime updatedDate) {
+    public Freelance(@Nonnull FreelanceId id, UserId userId, RibId ribId, LocalDateTime createdDate, LocalDateTime updatedDate) {
         super(createdDate, updatedDate);
         this.userId = userId;
         this.ribId = ribId;
         this.id=id;
     }
-
+    public Freelance(User user, RibId ribId,LocalDateTime createdDate, LocalDateTime updatedDate) {
+        super(createdDate, updatedDate);
+        this.userId = user.getId();
+        this.ribId = ribId;
+        user.addFreeLanceProfile(this);
+    }
 
     public Freelance(UserId userId, RibId ribId) {
         this.userId = userId;
