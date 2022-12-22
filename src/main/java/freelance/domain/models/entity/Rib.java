@@ -6,12 +6,15 @@ import freelance.domain.security.Auth;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Rib extends Auditable{
     public interface RibUser {
-        public boolean isOwnerOf(Billing billing);
-        public boolean isCurrentRib(Rib rib);
+        boolean isOwnerOf(Billing billing);
+        boolean isCurrentRib(Rib rib);
     }
     public Rib(String username,String iban,String bic,String cleRib){
      this.username=username;   this.bic=new Bic(bic); this.iban=new Iban(iban); this.cleRib=new CleRib(cleRib);
@@ -33,9 +36,8 @@ public class Rib extends Auditable{
         CleRib cleRib;
       Set<BillingId> billingIds=new HashSet<>(); //en ecriture on a besoin de charger ça en eager contrairement à la lecture
 
-   public Rib update(String username,String iban,String bic,String cleRib){
+   public void update(String username, String iban, String bic, String cleRib){
        this.username=username;   this.bic=new Bic(bic); this.iban=new Iban(iban); this.cleRib=new CleRib(cleRib);
-       return this;
    }
     public Rib update(String username, String bic, String cleRib, Auth auth){
         if(auth.hasNoneOfRoles(EmployeeRole.HUMAN_RESOURCE,EmployeeRole.ADMIN)){
@@ -45,12 +47,24 @@ public class Rib extends Auditable{
         this.username=username;   this.bic=new Bic(bic); this.cleRib=new CleRib(cleRib);
         return this;
     }
-    public Rib update(String iban, Auth auth){
+    public Rib update(String iban, Set<Billing> billings, Auth auth){
         if(auth.hasNoneOfRoles(EmployeeRole.ADMIN)){
             throw new DomainException(" current user grant is not enough to update Rib");
         }
-        // on ne peut pas changer l'Iban d'un rib qui a participé au paiement d'une facture déja payé cette règle doit être implémenté
-       // dans un service de domaine, car on a besoin des agregats de Billings pour vérifier cela
+
+        Map<BillingId,Billing> billingMap= billings.stream().collect(Collectors.toMap(Billing::getId, Function.identity()));
+        for (BillingId billingId: this.billingIds) {
+            if(!billingMap.containsKey(billingId)){
+                throw new DomainException("billing with id "
+                        +billingId+" with his associate to this Rib is not provide in the parameter list of billing");
+            }
+            Billing currentBilling= billingMap.get(billingId);
+
+            if(currentBilling.getPaymentStatus().isAfterOrEqual(PaymentStatus.PAID)){
+                throw new DomainException(" Rib with id "+this.id+" has been use for to paid Billing with id "
+                        +billingId+" it's iban cannot be change. May be create new Rib");
+            }
+        }
         this.iban=new Iban(iban);
         return this;
     }

@@ -120,10 +120,14 @@ public class Billing  extends Auditable {
             throw new DomainException(" the current user grant is not enough to perform rib modification");
         }
     }
-    public void  assertIsNotPaid(){
+    private void  assertIsNotPaid(){
         if(this.paymentStatus.isAfterOrEqual(PAID)){
             throw new DomainException("could perform the modification, because the billing is paid");
         }
+    }
+
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
     }
 
     public BillingId getId() {
