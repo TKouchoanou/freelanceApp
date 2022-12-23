@@ -59,7 +59,11 @@ public final class Auth {
   return false;
  }
 
-public boolean isOwner(Billing billing){
+ public Email getEmail() {
+  return email;
+ }
+
+ public boolean isOwner(Billing billing){
  return Optional.ofNullable(billing)
          .map(Billing::getUserId)
          .map(userId1 -> userId==userId1)

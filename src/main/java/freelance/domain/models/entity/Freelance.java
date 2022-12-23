@@ -1,5 +1,6 @@
 package freelance.domain.models.entity;
 
+import freelance.domain.annotation.SideEffectOnParameters;
 import freelance.domain.exception.DomainException;
 import freelance.domain.models.objetValue.*;
 import jakarta.annotation.Nonnull;
@@ -15,24 +16,50 @@ public class Freelance extends Auditable implements Rib.RibUser {
     CompanyId companyId;
     Set<BillingId> billingIds=new HashSet<>();
 
-    public Freelance(@Nonnull FreelanceId id, UserId userId, RibId ribId, LocalDateTime createdDate, LocalDateTime updatedDate) {
+    public Freelance(@Nonnull FreelanceId id, UserId userId, RibId ribId, CompanyId companyId, LocalDateTime createdDate, LocalDateTime updatedDate) {
         super(createdDate, updatedDate);
         this.userId = userId;
         this.ribId = ribId;
+        this.companyId=companyId;
         this.id=id;
     }
-    public Freelance(User user, RibId ribId,LocalDateTime createdDate, LocalDateTime updatedDate) {
+    @SideEffectOnParameters(ofType={User.class})
+    public Freelance(User user, Rib rib,LocalDateTime createdDate, LocalDateTime updatedDate) {
         super(createdDate, updatedDate);
         this.userId = user.getId();
-        this.ribId = ribId;
+        this.ribId = rib.getId();
         user.addFreeLanceProfile(this);
     }
+    @SideEffectOnParameters(ofType={User.class})
+    public Freelance(User user, Rib rib) {
+        this.userId = user.getId();
+        this.ribId = rib.getId();
 
-    public Freelance(UserId userId, RibId ribId) {
-        this.userId = userId;
-        this.ribId = ribId;
+        user.addFreeLanceProfile(this);
     }
-    public void changeRib(Rib rib){
+    @SideEffectOnParameters(ofType={User.class,Company.class})
+    public Freelance(User user, Company company) {
+        this.setCompanyRib(company);
+        company.addFreelance(this);
+        this.userId = user.getId();
+        user.addFreeLanceProfile(this);
+    }
+    private void setCompany(Company company,Boolean useCompanyRib){
+        if(this.companyId!=null){
+            throw new DomainException("this freelance has already company, may be instead of set company, change company");
+        }
+        if(useCompanyRib){
+           this.setCompanyRib(company);
+        }
+        this.companyId=company.getId();
+    }
+    public void changeCompany(Company old,Company current){
+        if(this.hasCompanyRib(old)){
+            this.setCompanyRib(current);
+        }
+        this.companyId=current.getId();
+    }
+    protected void changeRib(Rib rib){
         if(rib.getId()==null){
             throw  new DomainException("can not change rib because you provide rib with null id");
         }
@@ -47,4 +74,20 @@ public class Freelance extends Auditable implements Rib.RibUser {
     public boolean isCurrentRib(Rib rib){
        return rib!=null && this.ribId==rib.getId();
     }
+    private void setCompanyRib(Company company){
+        if(company.hasNotRib()){
+            throw new DomainException("cannot create freelance with company without rib");
+        }
+        this.ribId=company.getRibId();
+    }
+   public boolean hasNotRib(){
+        return ribId==null;
+   }
+   public boolean hasCompanyRib(Company company){
+      return   this.ribId==company.getRibId();
+   }
+    public FreelanceId getId() {
+        return id;
+    }
+
 }

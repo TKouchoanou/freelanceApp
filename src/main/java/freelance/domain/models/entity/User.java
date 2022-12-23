@@ -110,17 +110,35 @@ public class User extends Auditable{
     Set<Profile> profiles;
     boolean isActive;
 
-    public void update(String firstName, String lastName, String email) {
+    protected void update(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = new Email(email);
     }
-
-    public void setActive(boolean active) {
-        isActive = active;
+    public void update(String firstName, String lastName, String email,Auth auth) {
+       if(!auth.isThisUser(this) && auth.hasNoneOfRoles(EmployeeRole.ADMIN)){
+           throw new DomainException("you don't have enough right to perform this action");
+       }
+       this.update(firstName,lastName,email);
     }
 
-    public void setPassWord(String passWord) {
+    protected void setActive(boolean active) {
+        isActive = active;
+    }
+    public void setActive(boolean active,Auth auth) {
+        if(!auth.isThisUser(this) && auth.hasNoneOfRoles(EmployeeRole.ADMIN,EmployeeRole.HUMAN_RESOURCE)){
+            throw new DomainException("you don't have enough right to perform this action");
+        }
+        this.setActive(active);
+    }
+
+    protected void setPassWord(String passWord) {
+        this.passWord = new Password(passWord);
+    }
+    public void setPassWord(String passWord,Auth auth) {
+        if(!auth.isThisUser(this) && auth.hasNoneOfRoles(EmployeeRole.ADMIN)){
+            throw new DomainException("you don't have enough right to perform this action");
+        }
         this.passWord = new Password(passWord);
     }
 
@@ -132,7 +150,7 @@ public class User extends Auditable{
         }
        return this;
     }
-    public User addEmployeeProfile(Employee employee){
+    protected User addEmployeeProfile(Employee employee){
         //en effet, une fois qu'un employé est créé on peut déclencher cette action
         //tant qu'on nous envoie l'employé correspondant a cet utilisateur  on peut lui ajouter le profil Salarie, pareil pour un freelance
         //only employee can create employee profile
@@ -149,7 +167,7 @@ public class User extends Auditable{
 
        return this.addProfile(Profile.SALARY);
     }
-    public User addFreeLanceProfile(Freelance freelance){
+    protected User addFreeLanceProfile(Freelance freelance){
         if(this.hasProfile(Profile.FREELANCE)){
             return this;
         }

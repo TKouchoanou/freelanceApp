@@ -19,12 +19,13 @@ public class Rib extends Auditable{
     public Rib(String username,String iban,String bic,String cleRib){
      this.username=username;   this.bic=new Bic(bic); this.iban=new Iban(iban); this.cleRib=new CleRib(cleRib);
     }
-    public Rib(RibId id,String username, String iban,String bic,String cleRib,LocalDateTime createdDate, LocalDateTime updatedDate){
-            this(id,username, new Iban(iban), new Bic(bic), new CleRib(cleRib),createdDate,updatedDate);
+    public Rib(RibId id,String username, String iban,String bic,String cleRib,Set<BillingId> billingIds,LocalDateTime createdDate, LocalDateTime updatedDate){
+            this(id,username, new Iban(iban), new Bic(bic), new CleRib(cleRib),billingIds,createdDate,updatedDate);
     }
-    public Rib(RibId id, String username, Iban iban,Bic bic,CleRib cleRib,LocalDateTime createdDate, LocalDateTime updatedDate){
+    public Rib(RibId id, String username, Iban iban,Bic bic,CleRib cleRib,Set<BillingId> billingIds,LocalDateTime createdDate, LocalDateTime updatedDate){
             super(createdDate,updatedDate);
             this.id=id; this.username=username;  this.bic=bic; this.iban=iban; this.cleRib=cleRib;
+            this.billingIds=billingIds;
         }
     public Rib(RibId id, String username, Iban iban,Bic bic,CleRib cleRib){
         this.id=id; this.username=username;  this.bic=bic; this.iban=iban; this.cleRib=cleRib;
@@ -36,9 +37,6 @@ public class Rib extends Auditable{
         CleRib cleRib;
       Set<BillingId> billingIds=new HashSet<>(); //en ecriture on a besoin de charger ça en eager contrairement à la lecture
 
-   public void update(String username, String iban, String bic, String cleRib){
-       this.username=username;   this.bic=new Bic(bic); this.iban=new Iban(iban); this.cleRib=new CleRib(cleRib);
-   }
     public Rib update(String username, String bic, String cleRib, Auth auth){
         if(auth.hasNoneOfRoles(EmployeeRole.HUMAN_RESOURCE,EmployeeRole.ADMIN)){
             //au pire si le freelance peut modifier son rib il faut qu'il soumette une demande qui sera valider par un salarié
@@ -48,6 +46,10 @@ public class Rib extends Auditable{
         return this;
     }
     public Rib update(String iban, Set<Billing> billings, Auth auth){
+        Iban newIban=new Iban(iban);
+        if(newIban.equals(this.iban)){
+            return this;
+        }
         if(auth.hasNoneOfRoles(EmployeeRole.ADMIN)){
             throw new DomainException(" current user grant is not enough to update Rib");
         }
@@ -65,8 +67,11 @@ public class Rib extends Auditable{
                         +billingId+" it's iban cannot be change. May be create new Rib");
             }
         }
-        this.iban=new Iban(iban);
+        this.iban=newIban;
         return this;
+    }
+    public void addBilling(Billing billing){
+        billingIds.add(billing.getId());
     }
     public RibId getId() {
         return id;
@@ -86,5 +91,9 @@ public class Rib extends Auditable{
 
     public String getUsername() {
         return username;
+    }
+
+    public Set<BillingId> getBillingIds() {
+        return billingIds;
     }
 }

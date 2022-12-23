@@ -1,5 +1,6 @@
 package freelance.domain.models.entity;
 
+import freelance.domain.annotation.SideEffectOnParameters;
 import freelance.domain.exception.DomainException;
 import freelance.domain.models.objetValue.EmployeeId;
 import freelance.domain.models.objetValue.EmployeeRole;
@@ -17,18 +18,17 @@ public class Employee extends Auditable{
     UserId userId;
     Set<EmployeeRole> employeeRoles;
 
-    public Employee(@Nonnull EmployeeId employeeId, UserId userId, LocalDateTime createdDate, LocalDateTime updatedDate) {
+    public Employee(@Nonnull EmployeeId employeeId, UserId userId, Set<EmployeeRole> employeeRoles, LocalDateTime createdDate, LocalDateTime updatedDate) {
         super(createdDate, updatedDate);
         this.userId = userId;
         this.id=employeeId;
+        this.employeeRoles=employeeRoles;
     }
-    public Employee(User user,LocalDateTime createdDate, LocalDateTime updatedDate) {
-        super(createdDate, updatedDate);
+    @SideEffectOnParameters(ofType = {User.class})
+    public Employee(User user,Set<EmployeeRole> employeeRoles) {
         this.userId = user.getId();
+        this.employeeRoles=employeeRoles;
         user.addEmployeeProfile(this);
-    }
-    public Employee(UserId userId) {
-        this.userId = userId;
     }
     public void addRole(EmployeeRole role, Auth curent){
         //Il faudra hacker un utilisateur de départ qui sera salary pour ajouter les premiers roles
@@ -43,7 +43,7 @@ public class Employee extends Auditable{
         }
         remove(role);
     }
-    private void addRole(EmployeeRole role){
+    protected void addRole(EmployeeRole role){
         //Il faudra hacker un utilisateur de départ qui sera salary pour ajouter les premiers roles
         if(employeeRoles==null){
             employeeRoles= new HashSet<>();
