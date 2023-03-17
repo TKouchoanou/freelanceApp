@@ -3,6 +3,7 @@ package freelance.domain.models.entity;
 import freelance.domain.exception.DomainException;
 import freelance.domain.models.objetValue.*;
 import freelance.domain.security.Auth;
+import freelance.service.command.CommandException;
 
 import java.time.LocalDateTime;
 import java.util.Collections;

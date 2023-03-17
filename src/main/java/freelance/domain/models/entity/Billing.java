@@ -3,12 +3,15 @@ package freelance.domain.models.entity;
 import freelance.domain.exception.DomainException;
 import freelance.domain.models.objetValue.*;
 import freelance.domain.security.Auth;
+import jakarta.annotation.Nullable;
 import org.javamoney.moneta.Money;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static freelance.domain.models.objetValue.PaymentStatus.PAID;
-import static freelance.domain.models.objetValue.ValidationStatus.*;
+import static freelance.domain.models.objetValue.ValidationStatus.IS_PROCESSING;
+import static freelance.domain.models.objetValue.ValidationStatus.VALIDATE;
 
 
 public class Billing  extends Auditable {
@@ -23,7 +26,7 @@ public class Billing  extends Auditable {
     PaymentStatus paymentStatus;
     ValidationStatus validationStatus;
 
-    public Billing(LocalDateTime createdDate, LocalDateTime updatedDate, BillingId id, UserId freelanceId, RibId ribId, CompanyId companyId, Period period, Money amountTTC, Money amountHT, BillingFile file, PaymentStatus paymentStatus, ValidationStatus validationStatus) {
+    public Billing(BillingId id, UserId freelanceId, RibId ribId, CompanyId companyId, Period period, Money amountTTC, Money amountHT, BillingFile file, PaymentStatus paymentStatus, ValidationStatus validationStatus,LocalDateTime createdDate, LocalDateTime updatedDate) {
         super(createdDate, updatedDate);
         this.id = id;
         this.userId = freelanceId;
@@ -37,14 +40,16 @@ public class Billing  extends Auditable {
         this.validationStatus = validationStatus;
     }
 
-    public Billing(UserId freelanceId, RibId ribId, CompanyId companyId, Period period, Money amountTTC, Money amountHT, BillingFile file) {
-        this.userId = freelanceId;
-        this.ribId = ribId;
-        this.companyId = companyId;
+    public Billing(User freelance, Rib rib, @Nullable Company company, Period period, Money amountTTC, Money amountHT, BillingFile file) {
+        this.userId = freelance.getId();
+        this.ribId = rib.getId();
+        this.companyId = Optional.ofNullable(company).map(Company::getId).orElse(null);
         this.period = period;
         this.amountTTC = amountTTC;
         this.amountHT = amountHT;
         this.file = file;
+        this.paymentStatus=PaymentStatus.WAITING_VALIDATION;
+        this.validationStatus= IS_PROCESSING;
     }
     private void  changeFile(BillingFile file,Auth auth){
         assertIsAdminOrHumanRessourceOrOwner(auth);
@@ -52,6 +57,28 @@ public class Billing  extends Auditable {
             throw new DomainException(" you don't have enough right to perform this action");
         }
         changeFile(file);
+    }
+    private void changeUser(User old,User newUser){
+        if(old==null || old.getId()==null){
+            throw new DomainException("old user cannot be null or not persisted");
+        }
+        if(newUser==null || newUser.getId()==null){
+            throw new DomainException("new user cannot be null or not persisted");
+        }
+        if(old.equals(newUser)){
+            return;
+        }
+        if(this.userId!=old.getId()){
+            throw new DomainException("old user is not this billing user");
+        }
+        this.userId=newUser.getId();
+    }
+    public void changeUser(User old,User newUser,Auth auth){
+        if(auth.hasNoneOfRoles(EmployeeRole.ADMIN,EmployeeRole.HUMAN_RESOURCE)){
+            throw new DomainException("you don't have enough right to perform this action");
+        }
+        changeUser(old, newUser);
+
     }
     private void  changeFile(BillingFile file){
        assertIsNotPaid();

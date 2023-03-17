@@ -4,14 +4,14 @@ import freelance.domain.annotation.SideEffectOnParameters;
 import freelance.domain.exception.DomainException;
 import freelance.domain.models.objetValue.EmployeeId;
 import freelance.domain.models.objetValue.EmployeeRole;
-import freelance.domain.models.objetValue.Profile;
 import freelance.domain.models.objetValue.UserId;
 import freelance.domain.security.Auth;
 import jakarta.annotation.Nonnull;
 
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Employee extends Auditable{
     EmployeeId id;
@@ -37,7 +37,7 @@ public class Employee extends Auditable{
         }
         this.addRole(role);
     }
-    private void removeRole(EmployeeRole role,Auth auth){
+    public void removeRole(EmployeeRole role,Auth auth){
         if(auth.hasNoneOfRoles(EmployeeRole.ADMIN)){
             throw new DomainException(" only admin can add role ");
         }

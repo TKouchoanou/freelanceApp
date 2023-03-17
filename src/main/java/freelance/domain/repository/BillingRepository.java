@@ -7,6 +7,6 @@ import freelance.domain.models.objetValue.BillingId;
 import java.util.Set;
 import java.util.stream.Stream;
 
-public interface BillingRepository extends CrudRepository<BillingId, Billing>{
+public interface BillingRepository extends CrudRepository<Billing, BillingId>{
     Stream<Billing> findAll(Set<BillingId> billingIds);
 }

@@ -1,13 +1,13 @@
 package freelance.domain.security;
 
-import freelance.domain.exception.DomainException;
 import freelance.domain.models.entity.Billing;
-import freelance.domain.models.entity.Freelance;
-import freelance.domain.models.entity.Rib;
 import freelance.domain.models.entity.User;
 import freelance.domain.models.objetValue.*;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 //must be moved in use case if we decided to implement authorisatison rule in use case
 public final class Auth {

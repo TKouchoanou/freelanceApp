@@ -3,6 +3,7 @@ package freelance.domain.models.entity;
 import freelance.domain.annotation.SideEffectOnParameters;
 import freelance.domain.exception.DomainException;
 import freelance.domain.models.objetValue.*;
+import freelance.domain.security.Auth;
 import jakarta.annotation.Nonnull;
 
 import java.time.LocalDateTime;
@@ -53,17 +54,32 @@ public class Freelance extends Auditable implements Rib.RibUser {
         }
         this.companyId=company.getId();
     }
-    public void changeCompany(Company old,Company current){
+    protected void changeCompany(Company old,Company current){
         if(this.hasCompanyRib(old)){
             this.setCompanyRib(current);
         }
         this.companyId=current.getId();
     }
+    public void changeCompany(Company old, Company current, Auth auth){
+        if(auth.hasNoneOfRoles(EmployeeRole.ADMIN,EmployeeRole.HUMAN_RESOURCE)){
+            throw  new DomainException("cannot perfoerm this action");
+        }
+        changeCompany(old, current);
+    }
     protected void changeRib(Rib rib){
         if(rib.getId()==null){
             throw  new DomainException("can not change rib because you provide rib with null id");
         }
+        if(rib.getId().equals(this.ribId)){
+            return;
+        }
         this.ribId=rib.getId();
+    }
+    public void changeRib(Rib rib,Auth auth){
+        if(auth.hasNoneOfRoles(EmployeeRole.ADMIN,EmployeeRole.HUMAN_RESOURCE)){
+            throw  new DomainException("cannot perfoerm this action");
+        }
+        changeRib(rib);
     }
     public boolean isThisUser(User user){
         return user!=null && userId==user.getId();
