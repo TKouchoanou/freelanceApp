@@ -12,10 +12,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Rib extends Auditable{
-    public interface RibUser {
-        boolean isOwnerOf(Billing billing);
-        boolean isCurrentRib(Rib rib);
-    }
     public Rib(String username,String iban,String bic,String cleRib){
      this.username=username;   this.bic=new Bic(bic); this.iban=new Iban(iban); this.cleRib=new CleRib(cleRib);
     }
@@ -95,5 +91,13 @@ public class Rib extends Auditable{
 
     public Set<BillingId> getBillingIds() {
         return billingIds;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Rib rib) ){
+            return false;
+        }
+        return rib.getIban().equals(iban) && getCleRib().equals(cleRib);
     }
 }

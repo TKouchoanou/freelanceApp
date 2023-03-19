@@ -10,7 +10,7 @@ public record Iban(String value) {
      if(ibanValidator.isValid(value)){
          this.value=value;
      }else {
-         throw  new DomainException("you provide invalid iban ");
+         throw  new DomainException("you provide invalid iban "+value);
      }
     }
 

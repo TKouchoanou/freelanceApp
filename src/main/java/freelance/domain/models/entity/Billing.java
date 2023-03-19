@@ -1,5 +1,6 @@
 package freelance.domain.models.entity;
 
+import freelance.domain.annotation.SideEffectOnParameters;
 import freelance.domain.exception.DomainException;
 import freelance.domain.models.objetValue.*;
 import freelance.domain.security.Auth;
@@ -51,7 +52,7 @@ public class Billing  extends Auditable {
         this.paymentStatus=PaymentStatus.WAITING_VALIDATION;
         this.validationStatus= IS_PROCESSING;
     }
-    private void  changeFile(BillingFile file,Auth auth){
+    public void  changeFile(BillingFile file,Auth auth){
         assertIsAdminOrHumanRessourceOrOwner(auth);
         if(validationStatus.isAfterOrEqual(VALIDATE) && auth.hasNoneOfRoles(EmployeeRole.ADMIN,EmployeeRole.FINANCE)){
             throw new DomainException(" you don't have enough right to perform this action");
@@ -84,16 +85,22 @@ public class Billing  extends Auditable {
        assertIsNotPaid();
        this.file=file;
     }
-    private void  changeRib(Rib rib,Rib.RibUser freelance , Auth auth){
+    public void  changeRib(Rib rib , Auth auth){
       assertIsAdminOrHumanRessourceOrOwner(auth);
-      changeRib(rib,freelance);
+      changeRib(rib);
     }
-    private void  changeRib(Rib rib, Rib.RibUser ribUser){
+
+    private void setPeriod(Period period) {
+        this.period = period;
+    }
+    public void changePeriod(Period period,Auth auth) {
+        assertIsAdminOrHumanRessourceOrOwner(auth);
+        this.period = period;
+    }
+
+    private void  changeRib(Rib rib){
         if(this.validationStatus.isAfterOrEqual(VALIDATE)){
             throw new DomainException(" impossible to change validate billing rib, invalidate billing before");
-        }
-        if(!(ribUser !=null && ribUser.isOwnerOf(this) && ribUser.isCurrentRib(rib))){
-            throw new DomainException("unknown");
         }
         this.ribId=rib.getId();
     }
@@ -112,6 +119,12 @@ public class Billing  extends Auditable {
 
         this.amountHT= ht;
         this.amountTTC= ttc;
+    }
+    @SideEffectOnParameters(ofType = Company.class)
+    public void changeCompany(Company company,Auth auth) {
+        assertIsAdminOrHumanRessourceOrOwner(auth);
+        this.companyId = company.getId();
+        company.addBilling(this);
     }
 
     public void updatePayementStatus(PaymentStatus paymentStatus, Auth auth){
@@ -159,5 +172,33 @@ public class Billing  extends Auditable {
 
     public BillingId getId() {
         return id;
+    }
+
+    public CompanyId getCompanyId() {
+        return companyId;
+    }
+
+    public RibId getRibId() {
+        return ribId;
+    }
+
+    public Money getAmountHT() {
+        return amountHT;
+    }
+
+    public BillingFile getFile() {
+        return file;
+    }
+
+    public ValidationStatus getValidationStatus() {
+        return validationStatus;
+    }
+
+    public Money getAmountTTC() {
+        return amountTTC;
+    }
+
+    public Period getPeriod() {
+        return period;
     }
 }

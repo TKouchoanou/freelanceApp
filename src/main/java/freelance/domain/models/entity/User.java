@@ -108,7 +108,7 @@ public class User extends Auditable{
     String lastName;
     Email email;
     Password passWord;
-    Set<Profile> profiles;
+    Set<Profile> profiles=new HashSet<>();
     boolean isActive;
 
     protected void update(String firstName, String lastName, String email) {

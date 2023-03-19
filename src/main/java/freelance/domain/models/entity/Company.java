@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Company extends Auditable implements Rib.RibUser {
+public class Company extends Auditable  {
     CompanyId id;
     String name;
     RibId ribId;
@@ -84,7 +84,13 @@ public class Company extends Auditable implements Rib.RibUser {
         }
         this.freelanceIds.add(freelance.getId());
     }
+   public void addFreelance(Freelance freelance,Auth auth){
+        if(auth.hasNoneOfRoles(EmployeeRole.HUMAN_RESOURCE,EmployeeRole.ADMIN)){
+            throw new  DomainException("current auth not have enought right to perform this action");
+        }
+        addFreelance(freelance);
 
+   }
    public boolean isOwnerOf(Billing billing){
        return this.billingIds.stream().anyMatch(b->b.equals(billing.getId()));
     }
@@ -105,5 +111,13 @@ public class Company extends Auditable implements Rib.RibUser {
 
     public String getName() {
         return name;
+    }
+
+    public Set<BillingId> getBillingIds() {
+        return billingIds;
+    }
+
+    public Set<FreelanceId> getFreelanceIds() {
+        return freelanceIds;
     }
 }

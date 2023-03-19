@@ -1,7 +1,7 @@
 package freelance.domain.models.objetValue;
 
 public enum ValidationStatus {
-    IS_PROCESSING(1),  NOT_VALIDATE(1),VALIDATE(2);
+    IS_PROCESSING(1),  NOT_VALIDATE(0),VALIDATE(2);
     private final Integer code;
 
     ValidationStatus(Integer value){

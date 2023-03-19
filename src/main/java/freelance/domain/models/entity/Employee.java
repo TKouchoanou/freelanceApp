@@ -69,6 +69,6 @@ public class Employee extends Auditable{
     }
 
     public Set<EmployeeRole> getEmployeeRoles() {
-        return Collections.unmodifiableSet(employeeRoles);
+        return employeeRoles;
     }
 }
