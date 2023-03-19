@@ -23,19 +23,7 @@ public class UpdateBillingCommand extends AbstractBillingCommand implements Comm
         if(!TypeUtils.hasValue(billingId)){
             throw new CommandException(" you cannot update billing without provide billing Id");
         }
-
-        if(!TypeUtils.hasValue(ribId)){
-            throw new CommandException(" ribId is required");
-        }
-        if(startedDate==null || endedDate==null){
-            throw  new CommandException(" startedDate and endedDate are required");
-        }
-        if(amountHT==null || amountTTC==null){
-            throw new CommandException(" amountTTC and amountHT are required");
-        }
-        if(amountTTC.compareTo(amountHT)<0){
-            throw new CommandException("amount TTC must be greater or equals to amount HT");
-        }
+     super.commonValidateStateBeforeHandling();
     }
 
     @Override
