@@ -28,6 +28,8 @@ public class CreateEmployeeCommand implements Command {
 
     @Override
     public void validateStateAfterHandling() {
-
+        if(employeeId==null){
+            throw  new CommandException("null user Id provided to create employee");
+        }
     }
 }

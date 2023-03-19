@@ -54,6 +54,7 @@ public class CommandManagerImpl implements CommandManager{
             validateStateAfterHandling(command);
             this.txManager.commit(txStatus);
         }catch (Exception ex){
+            ex.printStackTrace();
             this.exHandlers.forEach(eh->eh.handleException(ex,command));
         }
         return command;

@@ -1,4 +1,5 @@
 package freelance.service.command.handler.freeLance;
+import freelance.domain.repository.UserRepository;
 import freelance.service.command.Command.Usecase;
 import freelance.domain.models.entity.Company;
 import freelance.domain.models.entity.Freelance;
@@ -23,7 +24,13 @@ public class UpdateFreeLanceCommandHandler implements CommandHandler {
     CompanyRepository companyRepository;
     RibRepository ribRepository;
     AuthProvider authProvider;
-
+    UpdateFreeLanceCommandHandler(FreelanceRepository freelanceRepository,
+                                  CompanyRepository companyRepository, RibRepository ribRepository,AuthProvider authProvider){
+        this.ribRepository=ribRepository;
+        this.companyRepository=companyRepository;
+        this.freelanceRepository=freelanceRepository;
+        this.authProvider=authProvider;
+    }
 
     @Override
     public void handle(Command command, HandlingContext handlingContext) {

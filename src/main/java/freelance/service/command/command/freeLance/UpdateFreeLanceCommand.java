@@ -2,6 +2,8 @@ package freelance.service.command.command.freeLance;
 
 import freelance.service.command.Command;
 import freelance.service.command.CommandException;
+import freelance.service.command.handler.freeLance.UpdateFreeLanceCommandHandler;
+import freelance.service.command.handler.rib.CreateRibCommandHandler;
 import freelance.service.utils.TypeUtils;
 import lombok.*;
 
@@ -10,6 +12,7 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
+@Command.Usecase(handlers = UpdateFreeLanceCommandHandler.class)
 public class UpdateFreeLanceCommand implements Command {
     Long ribId;
     Long freeLanceId;

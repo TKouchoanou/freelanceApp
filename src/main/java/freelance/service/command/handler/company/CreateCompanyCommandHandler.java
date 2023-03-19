@@ -15,6 +15,11 @@ import org.springframework.stereotype.Service;
 public class CreateCompanyCommandHandler implements CommandHandler {
     CompanyRepository companyRepository;
     RibRepository ribRepository;
+    CreateCompanyCommandHandler(CompanyRepository companyRepository, RibRepository ribRepository){
+        this.companyRepository=companyRepository;
+        this.ribRepository=ribRepository;
+    }
+
     @Override
     public void handle(Command command, HandlingContext handlingContext) {
         if(!(command instanceof CreateCompanyCommand cmd)){

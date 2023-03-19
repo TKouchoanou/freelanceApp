@@ -23,4 +23,6 @@ public abstract class AbstractBillingCommand  {
     BigDecimal amountHT;
     byte[] file;
     String fileName;
+    String validationStatus;
+    String paymentStatus;
 }

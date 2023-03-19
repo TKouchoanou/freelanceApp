@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
 public class UpdateEmployeeCommandHandler implements CommandHandler {
     EmployeeRepository employeeRepository;
     AuthProvider authProvider;
+    UpdateEmployeeCommandHandler( EmployeeRepository employeeRepository,AuthProvider authProvider){
+        this.employeeRepository=employeeRepository; this.authProvider=authProvider;
+    }
     @Override
     public void handle(Command command, HandlingContext handlingContext) {
         if(!(command instanceof UpdateEmployeeCommand cmd)){

@@ -40,6 +40,5 @@ public class UpdateBillingCommand extends AbstractBillingCommand implements Comm
 
     @Override
     public void validateStateAfterHandling() {
-
     }
 }

@@ -4,6 +4,9 @@ import freelance.domain.models.entity.Billing;
 import freelance.domain.models.objetValue.BillingId;
 import freelance.domain.models.objetValue.PaymentStatus;
 import freelance.domain.repository.BillingRepository;
+import freelance.domain.repository.CompanyRepository;
+import freelance.domain.repository.RibRepository;
+import freelance.domain.repository.UserRepository;
 import freelance.domain.security.Auth;
 import freelance.service.command.Command;
 import freelance.service.command.CommandHandler;
@@ -16,6 +19,11 @@ import freelance.service.command.Command.Usecase;
 public class UpdatePaymentStatusCommandHandler implements CommandHandler {
     AuthProvider authProvider;
     BillingRepository billingRepository;
+    UpdatePaymentStatusCommandHandler(  BillingRepository billingRepository,
+                                  AuthProvider authProvider){
+        this.billingRepository=billingRepository;
+        this.authProvider=authProvider;
+    }
     @Override
     public void handle(Command command, HandlingContext handlingContext) {
         if(!(command instanceof UpdatePaymentStatusCommand cmd)){

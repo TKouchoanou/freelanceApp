@@ -6,6 +6,6 @@ public class TypeUtils {
         return v!=null && v!=0;
     }
     public static boolean hasValue(String v) {
-        return v!=null && v.isBlank();
+        return v!=null && !v.isBlank();
     }
 }

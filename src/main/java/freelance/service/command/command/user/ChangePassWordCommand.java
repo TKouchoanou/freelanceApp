@@ -2,6 +2,8 @@ package freelance.service.command.command.user;
 
 import freelance.service.command.Command;
 import freelance.service.command.CommandException;
+import freelance.service.command.handler.user.ChangePasswordCommandHandler;
+import freelance.service.command.handler.user.CreateUserCommandHandler;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Getter
 @Setter
+@Command.Usecase(handlers = ChangePasswordCommandHandler.class)
 public class ChangePassWordCommand implements Command {
     Long userId;
     String newPassWord;
@@ -31,7 +34,7 @@ public class ChangePassWordCommand implements Command {
         return userId;
     }
 
-    public Boolean getSucceed() {
+    public Boolean hasSucceed() {
         return succeed;
     }
 
@@ -47,7 +50,7 @@ public class ChangePassWordCommand implements Command {
         if(this.newPassWord.isBlank()){
             throw new CommandException(" blank pass word not allowed");
         }
-       if( this.newPassWord.equals(this.newPassWordConfirmation)){
+       if(!this.newPassWord.equals(this.newPassWordConfirmation)){
            throw new CommandException(" password confirmation and password are not similar");
        }
 

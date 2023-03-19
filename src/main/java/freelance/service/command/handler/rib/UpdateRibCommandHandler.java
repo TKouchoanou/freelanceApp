@@ -21,6 +21,13 @@ public class UpdateRibCommandHandler implements CommandHandler {
     RibRepository ribRepository;
     AuthProvider authProvider;
     BillingRepository billingRepository;
+
+    UpdateRibCommandHandler( RibRepository ribRepository, AuthProvider authProvider,
+                             BillingRepository billingRepository){
+        this.ribRepository=ribRepository;
+        this.authProvider=authProvider;
+        this.billingRepository=billingRepository;
+    }
     @Override
     public void handle(Command command, HandlingContext handlingContext) {
         if(!(command instanceof UpdateRibCommand cmd)){

@@ -1,5 +1,4 @@
 package freelance.service.command.handler.freeLance;
-import freelance.service.command.Command.Usecase;
 import freelance.domain.models.entity.Company;
 import freelance.domain.models.entity.Freelance;
 import freelance.domain.models.entity.Rib;
@@ -15,15 +14,25 @@ import freelance.service.command.Command;
 import freelance.service.command.CommandException;
 import freelance.service.command.CommandHandler;
 import freelance.service.command.command.freeLance.CreateFreeLanceCommand;
+import freelance.service.command.utils.AuthProvider;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 @Service
-public class createFreeLanceCommandHandler implements CommandHandler {
+public class CreateFreeLanceCommandHandler implements CommandHandler {
     UserRepository userRepository;
     FreelanceRepository freelanceRepository;
     CompanyRepository companyRepository;
     RibRepository ribRepository;
+    AuthProvider authProvider;
+    CreateFreeLanceCommandHandler( UserRepository userRepository, FreelanceRepository freelanceRepository,
+    CompanyRepository companyRepository, RibRepository ribRepository,AuthProvider authProvider){
+        this.ribRepository=ribRepository;
+        this.companyRepository=companyRepository;
+        this.freelanceRepository=freelanceRepository;
+        this.userRepository=userRepository;
+        this.authProvider=authProvider;
+    }
   @Override
     public void handle(Command command, HandlingContext handlingContext) {
         // Vérifier si la commande est de type CreateFreeLanceCommand
@@ -58,6 +67,7 @@ public class createFreeLanceCommandHandler implements CommandHandler {
             CompanyId companyId = new CompanyId(cmd.getCompanyId());
             Company company = companyRepository.getById(companyId);
             freelance = freelanceRepository.save(new Freelance(user, company));
+            company.addFreelance(freelance,this.authProvider.getCurrentAuth());
             companyRepository.save(company);
         } else if (cmd.hasRibId()) {
             RibId ribId = new RibId(cmd.getRibId());

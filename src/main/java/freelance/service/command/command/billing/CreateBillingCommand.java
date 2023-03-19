@@ -48,5 +48,11 @@ public class CreateBillingCommand extends AbstractBillingCommand implements Comm
       if(billingId==null){
           throw new CommandException(" billingId have not been valorised");
       }
+      if(validationStatus==null){
+          throw new CommandException(" billing validation status have not been valorised");
+      }
+        if(paymentStatus==null){
+            throw new CommandException(" billing payement status have not been valorised");
+        }
     }
 }

@@ -1,9 +1,9 @@
 package freelance.service.command.command.billing;
 
-import freelance.domain.models.objetValue.PaymentStatus;
+import freelance.domain.models.objetValue.ValidationStatus;
 import freelance.service.command.Command;
-import freelance.service.command.CommandException;
 import freelance.service.command.Command.Usecase;
+import freelance.service.command.CommandException;
 import freelance.service.command.handler.billing.UpdateValidationStatusCommandHandler;
 import freelance.service.utils.TypeUtils;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ public class UpdateValidationStatusCommand implements Command {
         if(!TypeUtils.hasValue(billingId)){
             throw new CommandException(" you cannot update billing without provide billing Id");
         }
-        PaymentStatus.valueOf(validationStatus);
+        ValidationStatus.valueOf(validationStatus);
     }
 
     @Override

@@ -25,6 +25,17 @@ public class CreateBillingCommandHandler implements CommandHandler {
     CompanyRepository companyRepository;
     RibRepository ribRepository;
     AuthProvider authProvider;
+    CreateBillingCommandHandler(  BillingRepository billingRepository,
+    UserRepository userRepository,
+    CompanyRepository companyRepository,
+    RibRepository ribRepository,
+    AuthProvider authProvider){
+        this.billingRepository=billingRepository;
+        this.companyRepository=companyRepository;
+        this.userRepository=userRepository;
+        this.ribRepository=ribRepository;
+        this.authProvider=authProvider;
+    }
     @Override
     public void handle(Command command, HandlingContext handlingContext) {
         if(!(command instanceof CreateBillingCommand cmd)){
@@ -41,6 +52,7 @@ public class CreateBillingCommandHandler implements CommandHandler {
         BillingFile billingFile= new BillingFile(cmd.getFile(), Optional.ofNullable(cmd.getFileName()).orElse("billing_"+user.getFirstName()+"_"+user.getId().id()+ LocalDateTime.now()));
         Billing billing = billingRepository.save(new Billing(user,rib,company,period,ttcAmount,htAmount,billingFile));
         cmd.setBillingId(billing.getId().id());
-
+        cmd.setValidationStatus(billing.getValidationStatus().name());
+        cmd.setPaymentStatus(billing.getPaymentStatus().name());
     }
 }

@@ -13,6 +13,10 @@ import org.springframework.stereotype.Service;
 public class ChangePasswordCommandHandler implements CommandHandler {
     UserRepository userRepository;
     AuthProvider authProvider;
+    ChangePasswordCommandHandler(UserRepository userRepository,AuthProvider authProvider){
+        this.userRepository=userRepository;
+        this.authProvider=authProvider;
+    }
     @Override
     public void handle(Command command, HandlingContext handlingContext) {
         if(!(command instanceof ChangePassWordCommand cmd)){
@@ -21,5 +25,6 @@ public class ChangePasswordCommandHandler implements CommandHandler {
         User user=userRepository.getById(new UserId(cmd.getUserId()));
         user.setPassWord(cmd.getNewPassWord(),authProvider.getCurrentAuth());
         userRepository.save(user);
+        cmd.setSucceed(true);
     }
 }

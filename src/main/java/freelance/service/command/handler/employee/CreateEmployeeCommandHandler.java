@@ -19,6 +19,10 @@ import java.util.stream.Collectors;
 public class CreateEmployeeCommandHandler implements CommandHandler {
     UserRepository userRepository;
     EmployeeRepository employeeRepository;
+    CreateEmployeeCommandHandler( UserRepository userRepository, EmployeeRepository employeeRepository){
+        this.userRepository=userRepository;
+        this.employeeRepository=employeeRepository;
+    }
     @Override
     public void handle(Command command, HandlingContext handlingContext) {
         if(!(command instanceof CreateEmployeeCommand cmd)){
