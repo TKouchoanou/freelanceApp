@@ -41,7 +41,7 @@ public class Company extends Auditable  {
        return this.ribId==rib.getId();
     }
 
-    public void changeRib(Rib rib, Auth auth){
+    protected void changeRib(Rib rib, Auth auth){
       if(auth.hasNoneOfRoles(EmployeeRole.ADMIN,EmployeeRole.HUMAN_RESOURCE)){
           throw new DomainException("can not perform this action");
       }
@@ -50,13 +50,13 @@ public class Company extends Auditable  {
     @SideEffectOnParameters(ofType={Freelance.class})
     private Set<Freelance>  changeRib(Rib rib,Set<Freelance> freelances){
         // si les freelances modifiés ne sont pas persistés, il y a incohérence
-        Map<FreelanceId,Freelance> freelanceMap=freelances.stream().collect(Collectors.toMap(Freelance::getId, Function.identity()));
+        Map<FreelanceId,Freelance> freelanceByIdMap =freelances.stream().collect(Collectors.toMap(Freelance::getId, Function.identity()));
         for (FreelanceId id: this.freelanceIds) {
-            if(!freelanceMap.containsKey(id)){
+            if(!freelanceByIdMap.containsKey(id)){
                 throw new DomainException("Freelance with id "
                         +id+" witch is associate to company "+this.id+" is not provide in the parameter list of freelances");
             }
-            Freelance current=freelanceMap.get(id);
+            Freelance current= freelanceByIdMap.get(id);
             if(current.hasCompanyRib(this)){
                 current.changeRib(rib);
             }
@@ -71,7 +71,7 @@ public class Company extends Auditable  {
         return  changeRib(rib,freelances);
     }
 
-    public void addBilling(Billing billing){
+    protected void addBilling(Billing billing){
         if(billing.getId()==null){
             throw new DomainException("add not persisted billing to company");
         }

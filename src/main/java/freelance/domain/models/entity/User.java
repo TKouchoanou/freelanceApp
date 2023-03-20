@@ -3,7 +3,6 @@ package freelance.domain.models.entity;
 import freelance.domain.exception.DomainException;
 import freelance.domain.models.objetValue.*;
 import freelance.domain.security.Auth;
-import freelance.service.command.CommandException;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -178,7 +177,13 @@ public class User extends Auditable{
 
         return this.addProfile(Profile.FREELANCE);
     }
-    public User removeProfile(Profile profile) {
+    public User removeProfile(Profile profile,Auth auth) {
+        if(auth.hasNoneOfRoles(EmployeeRole.ADMIN,EmployeeRole.HUMAN_RESOURCE)){
+            throw new DomainException("auth "+auth.getEmail()+" has not enough right to update user profile");
+        }
+       return removeProfile(profile);
+    }
+    protected User removeProfile(Profile profile) {
         if(profiles==null)
             profiles= new HashSet<>();
         if(profiles.contains(profile)){
