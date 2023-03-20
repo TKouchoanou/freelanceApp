@@ -1,15 +1,13 @@
 package freelance.storage.memory;
 
+import freelance.domain.models.entity.Company;
 import freelance.domain.models.entity.Freelance;
 import freelance.domain.models.objetValue.FreelanceId;
 import freelance.domain.models.objetValue.UserId;
 import freelance.domain.repository.FreelanceRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 @Repository
 @SuppressWarnings("unchecked")
@@ -55,7 +53,13 @@ public class FreelanceRepositoryImpl implements FreelanceRepository {
 
     @Override
     public <S extends Freelance> List<S> saveAll(Iterable<S> entities) {
-        return null;
+        S freelance;
+        List<S> freelances=new ArrayList<>();
+        for (S entity: entities) {
+          freelance =save(entity);
+          freelances.add(freelance);
+        }
+        return freelances;
     }
 
     @Override
@@ -65,6 +69,14 @@ public class FreelanceRepositoryImpl implements FreelanceRepository {
                 .filter(f->userId.equals(f.getUserId()))
                 .findAny();
     }
+
+    @Override
+    public Stream<Freelance> findByCompany(Company company) {
+        return stores.values()
+                .stream()
+                .filter(f->f.getCompanyId()!=null && f.getCompanyId().equals(company.getId()));
+    }
+
     private FreelanceId nextId(){
         return stores
                 .keySet()
