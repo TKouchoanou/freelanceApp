@@ -7,6 +7,7 @@ import freelance.domain.security.Auth;
 import jakarta.annotation.Nonnull;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -116,5 +117,9 @@ public class Freelance extends Auditable {
 
     public CompanyId getCompanyId() {
         return companyId;
+    }
+
+    public Set<BillingId> getBillingIds() {
+        return Collections.unmodifiableSet(billingIds);
     }
 }

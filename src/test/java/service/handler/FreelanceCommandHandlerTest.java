@@ -3,8 +3,6 @@ package service.handler;
 import freelance.Application;
 import freelance.service.command.CommandManager;
 import freelance.service.command.command.company.CreateCompanyCommand;
-import freelance.service.command.command.employee.CreateEmployeeCommand;
-import freelance.service.command.command.employee.UpdateEmployeeCommand;
 import freelance.service.command.command.freeLance.CreateFreeLanceCommand;
 import freelance.service.command.command.freeLance.UpdateFreeLanceCommand;
 import freelance.service.command.command.rib.CreateRibCommand;
@@ -13,8 +11,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 @SpringBootTest(classes= Application.class)
 public class FreelanceCommandHandlerTest {

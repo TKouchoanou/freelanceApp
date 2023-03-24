@@ -37,16 +37,7 @@ public class Company extends Auditable  {
     public RibId getRibId() {
         return ribId;
     }
-    public boolean hasThisRib(Rib rib){
-       return this.ribId==rib.getId();
-    }
 
-    protected void changeRib(Rib rib, Auth auth){
-      if(auth.hasNoneOfRoles(EmployeeRole.ADMIN,EmployeeRole.HUMAN_RESOURCE)){
-          throw new DomainException("can not perform this action");
-      }
-      this.ribId=rib.getId();
-    }
     @SideEffectOnParameters(ofType={Freelance.class})
     private Set<Freelance>  changeRib(Rib rib,Set<Freelance> freelances){
         // si les freelances modifiés ne sont pas persistés, il y a incohérence
@@ -98,9 +89,6 @@ public class Company extends Auditable  {
         return rib!=null && ribId==rib.getId();
     }
 
-    public boolean hasRib(){
-        return this.ribId!=null;
-    }
     public boolean hasNotRib(){
         return this.ribId==null;
     }

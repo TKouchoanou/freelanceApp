@@ -3,6 +3,7 @@ package service.handler;
 import freelance.Application;
 import freelance.service.command.CommandManager;
 import freelance.service.command.command.company.CreateCompanyCommand;
+import freelance.service.command.command.company.UpdateCompanyCommand;
 import freelance.service.command.command.rib.CreateRibCommand;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,31 @@ public class CompanyCommandHandlerTest {
         Assertions.assertDoesNotThrow(()->commandManager.process(command));
         Assertions.assertNotEquals(null, command.getCompanyId());
         Assertions.assertNotEquals(0L,command.getCompanyId());
+    }
+    @Test
+    public void  updateWithSuccess(){
+        CreateCompanyCommand createCommand=getCreateCompanyCommand();
+        String newName=createCommand.getName()+" v2";
+        UpdateCompanyCommand command= UpdateCompanyCommand
+                .builder()
+                .companyId(createCommand.getCompanyId())
+                .ribId(createCommand.getRibId())
+                .name(newName)
+                .build();
+        Assertions.assertDoesNotThrow(()->commandManager.process(command));
+        Assertions.assertNotEquals(createCommand.getName(), command.getName());
+        Assertions.assertEquals(newName, command.getName());
+        Assertions.assertEquals(createCommand.getCompanyId(),command.getCompanyId());
+    }
+
+    public CreateCompanyCommand getCreateCompanyCommand(){
+        CreateCompanyCommand command= CreateCompanyCommand
+                .builder()
+                .ribId(createRib().getCreateRibId())
+                .name("TK Buisness")
+                .build();
+       commandManager.process(command);
+       return command;
 
     }
 
