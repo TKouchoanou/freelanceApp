@@ -1,16 +1,13 @@
 package freelance.domain.security;
 
-import freelance.domain.models.entity.Billing;
-import freelance.domain.models.entity.Rib;
-import freelance.domain.models.entity.User;
+import freelance.domain.models.entity.*;
 import freelance.domain.models.objetValue.*;
 import jakarta.annotation.Nullable;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 //must be moved in use case if we decided to implement authorisatison rule in use case
 public final class Auth {
  // le current user est un Auth et un Auth est unique dans l'application
@@ -19,6 +16,8 @@ public final class Auth {
  final UserId userId;
  final EmployeeId employeeId;
  FreelanceId freelanceId;
+ CompanyId companyId;
+ RibId companyRibId;
  RibId ribId;
  String firstName;
  String lastName;
@@ -33,12 +32,6 @@ public final class Auth {
  }
  boolean isActive;
 
- public boolean hasRole(EmployeeRole role){
-  if(employeeRoles!=null){
-   return employeeRoles.contains(role);
-  }
-  return false;
- }
  public  boolean isThisUser(User user){
   return this.userId==user.getId();
  }
@@ -52,18 +45,8 @@ public final class Auth {
  public boolean hasNoneOfRoles(Set<EmployeeRole> roles){
   return !this.hasALeastOneOfRoles(roles);
  }
- public Set<EmployeeRole> getEmployeeRoles() {
-  return Collections.unmodifiableSet(employeeRoles);
- }
  public boolean hasNoneOfRoles(EmployeeRole ...roles){
   return this.hasNoneOfRoles(Arrays.stream(roles).collect(Collectors.toSet()));
- }
-
- public  boolean hasProfile(Profile profile){
-  if(this.profiles!=null){
-   return this.profiles.contains(profile);
-  }
-  return false;
  }
 
  public Email getEmail() {
@@ -77,20 +60,65 @@ public final class Auth {
          .orElse(false);
 }
  public boolean isOwner(Rib rib){
-  return rib.getId().equals(this.ribId);
+  return rib.getId()!=null && (rib.getId().equals(this.ribId) || rib.getId().equals(companyRibId)) ;
  }
+ public boolean isOwner(Object object){
+  if(object instanceof  Rib){
+   return this.isOwner((Rib) object);
+  }
+  if(object instanceof  RibId){
+   return object.equals(this.ribId) || object.equals(companyRibId);
+  }
 
+  if(object instanceof  Billing){
+    return this.isOwner((Billing) object);
+  }
 
+  if(object instanceof Freelance){
+   return this.freelanceId!=null &&
+           this.freelanceId.equals(((Freelance) object).getId());
+  }
+  if(object instanceof FreelanceId){
+   return this.freelanceId!=null && this.freelanceId.equals(object);
+  }
 
+  if(object instanceof Employee){
+   return this.employeeId!=null &&
+           this.employeeId.equals(((Employee) object).getId());
+  }
+  if(object instanceof EmployeeId){
+   return this.employeeId!=null &&
+           this.employeeId.equals(object);
+  }
+  if(object instanceof UserId){
+   return this.userId!=null &&
+           this.userId.equals(object);
+  }
 
+  if(object instanceof User){
+   return this.userId!=null &&
+           this.userId.equals(((User) object).getId());
+  }
 
+  if(object instanceof Collection<?>) {
 
+   if (!((Collection<?>) object).isEmpty()) {
+    for (Object value : (Collection<?>) object) {
+     if (!this.isOwner(value)) {
+      return false;
+     }
+    }
+    return true;
+   }
+  }
 
+   if(object instanceof Stream<?>){
+    Collection<?> collection=((Stream<?>) object).toList();
+    return this.isOwner(collection);
+   }
 
-
- /*
-
-*/
+  return false;
+ }
 
 
 
