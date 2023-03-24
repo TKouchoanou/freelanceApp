@@ -1,8 +1,9 @@
 package freelance.storage.memory;
 
-import freelance.domain.models.entity.Company;
 import freelance.domain.models.entity.Freelance;
+import freelance.domain.models.objetValue.CompanyId;
 import freelance.domain.models.objetValue.FreelanceId;
+import freelance.domain.models.objetValue.RibId;
 import freelance.domain.models.objetValue.UserId;
 import freelance.domain.repository.FreelanceRepository;
 import org.springframework.stereotype.Repository;
@@ -71,10 +72,17 @@ public class FreelanceRepositoryImpl implements FreelanceRepository {
     }
 
     @Override
-    public Stream<Freelance> findByCompany(Company company) {
+    public Stream<Freelance> findByCompany(CompanyId companyId) {
         return stores.values()
                 .stream()
-                .filter(f->f.getCompanyId()!=null && f.getCompanyId().equals(company.getId()));
+                .filter(f->f.getCompanyId()!=null && f.getCompanyId().equals(companyId));
+    }
+
+    @Override
+    public Stream<Freelance> findByRibId(RibId ribId) {
+        return stores.values()
+                .stream()
+                .filter(f->f.getRibId()!=null && f.getRibId().equals(ribId));
     }
 
     private FreelanceId nextId(){

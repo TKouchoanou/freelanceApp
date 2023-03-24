@@ -26,7 +26,7 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 
     @Override
     public Optional<Company> findById(CompanyId companyId) {
-        return stores.values().stream().filter(c->companyId.equals(c.getId())).findAny();
+        return stores.values().stream().filter(c->companyId!=null && companyId.equals(c.getId())).findAny();
     }
 
     @Override

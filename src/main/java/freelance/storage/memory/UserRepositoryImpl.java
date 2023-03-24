@@ -16,7 +16,7 @@ public class UserRepositoryImpl implements UserRepository {
     Map<UserId,User> stores= new HashMap<>();
     @Override
     public Stream<User> findAll() {
-        return null;
+        return stores.values().stream();
     }
 
     @Override

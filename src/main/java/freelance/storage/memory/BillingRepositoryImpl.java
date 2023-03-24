@@ -2,6 +2,8 @@ package freelance.storage.memory;
 
 import freelance.domain.models.entity.Billing;
 import freelance.domain.models.objetValue.BillingId;
+import freelance.domain.models.objetValue.CompanyId;
+import freelance.domain.models.objetValue.RibId;
 import freelance.domain.repository.BillingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +17,17 @@ public class BillingRepositoryImpl implements BillingRepository {
     public Stream<Billing> findAll(Set<BillingId> billingIds) {
         return stores.values().stream().filter(b->billingIds.contains(b.getId()));
     }
+
+    @Override
+    public Stream<Billing> findByRibId(RibId ribId) {
+         return stores.values().stream().filter(b->b.getRibId().equals(ribId));
+    }
+
+    @Override
+    public Stream<Billing> findByCompanyId(CompanyId companyId) {
+        return stores.values().stream().filter(b->b.getCompanyId().equals(companyId));
+    }
+
 
     @Override
     public Stream<Billing> findAll() {

@@ -2,7 +2,6 @@ package freelance.storage.memory;
 
 import freelance.domain.models.entity.Employee;
 import freelance.domain.models.objetValue.EmployeeId;
-import freelance.domain.models.objetValue.FreelanceId;
 import freelance.domain.models.objetValue.UserId;
 import freelance.domain.repository.EmployeeRepository;
 import org.springframework.stereotype.Repository;
