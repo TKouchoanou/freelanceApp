@@ -1,5 +1,4 @@
 package freelance.service.command.handler.user;
-import freelance.service.command.Command.Usecase;
 import freelance.domain.models.entity.User;
 import freelance.domain.models.objetValue.UserId;
 import freelance.domain.repository.UserRepository;
@@ -23,7 +22,7 @@ public class ChangePasswordCommandHandler implements CommandHandler {
             return;
         }
         User user=userRepository.getById(new UserId(cmd.getUserId()));
-        user.setPassWord(cmd.getNewPassWord(),authProvider.getCurrentAuth());
+        user.setPassWord(cmd.getNewPassword(),authProvider.getCurrentAuth());
         userRepository.save(user);
         cmd.setSucceed(true);
     }

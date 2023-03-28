@@ -2,6 +2,7 @@ package freelance.service.command.command.billing;
 
 import freelance.service.command.CommandException;
 import freelance.service.utils.TypeUtils;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,12 +17,16 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public abstract class AbstractBillingCommand  {
-    Long billingId;
+
     Long ribId;
     Long companyId;
+    @NotNull
     LocalDate startedDate;
+    @NotNull
     LocalDate endedDate;
+    @NotNull
     BigDecimal amountTTC;
+    @NotNull
     BigDecimal amountHT;
     byte[] file;
     String fileName;

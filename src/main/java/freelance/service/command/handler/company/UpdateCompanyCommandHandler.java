@@ -36,7 +36,7 @@ public class UpdateCompanyCommandHandler  implements CommandHandler {
         Company company=companyRepository.getById(new CompanyId(cmd.getCompanyId()));
         Rib rib = null;
         if(cmd.getRibId()!=null){
-             rib=ribRepository.findById(new RibId(cmd.getRibId())).orElse(null);
+             rib=ribRepository.getById(new RibId(cmd.getRibId()));
         }
         Set<Freelance> freelances=freelanceRepository.findByCompany(company.getId()).collect(Collectors.toSet());
         company.changeRib(rib,freelances,authProvider.getCurrentAuth());

@@ -12,7 +12,7 @@ import freelance.service.command.CommandHandler;
 import freelance.service.command.command.rib.UpdateRibCommand;
 import freelance.service.command.utils.AuthProvider;
 import org.springframework.stereotype.Service;
-import freelance.service.command.Command.Usecase;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 

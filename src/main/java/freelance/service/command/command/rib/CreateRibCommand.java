@@ -3,13 +3,18 @@ package freelance.service.command.command.rib;
 import freelance.service.command.Command.Usecase;
 import freelance.service.command.CommandException;
 import freelance.service.command.handler.rib.CreateRibCommandHandler;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
 @Usecase(handlers = CreateRibCommandHandler.class)
 public class CreateRibCommand  extends AbstractRibCommand {
-
-
+    Long ribId;
 
     @Override
     public void validateStateBeforeHandling() {

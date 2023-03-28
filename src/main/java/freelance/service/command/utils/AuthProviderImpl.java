@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 @Component
+//@Scope("prototype")// par session à gérer avec une méthode productrice  annotées par @Bean après chaque conection
 public class AuthProviderImpl implements AuthProvider {
 
    Auth auth;

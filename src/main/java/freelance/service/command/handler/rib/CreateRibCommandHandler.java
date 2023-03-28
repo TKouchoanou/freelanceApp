@@ -1,5 +1,5 @@
 package freelance.service.command.handler.rib;
-import freelance.service.command.Command.Usecase;
+
 import freelance.domain.models.entity.Rib;
 import freelance.domain.repository.RibRepository;
 import freelance.service.command.Command;

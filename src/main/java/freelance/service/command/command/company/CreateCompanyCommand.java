@@ -4,7 +4,9 @@ import freelance.service.command.Command;
 import freelance.service.command.CommandException;
 import freelance.service.command.Command.Usecase;
 import freelance.service.command.handler.company.CreateCompanyCommandHandler;
+import freelance.service.command.utils.validation.NotEmptyNumber;
 import freelance.service.utils.TypeUtils;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @AllArgsConstructor
@@ -15,7 +17,9 @@ import lombok.*;
 @Usecase(handlers = {CreateCompanyCommandHandler.class})
 public class CreateCompanyCommand implements Command {
     String name;
+    @NotEmptyNumber
     Long ribId;
+    @NotEmptyNumber
     Long companyId;
     @Override
     public void validateStateBeforeHandling() {

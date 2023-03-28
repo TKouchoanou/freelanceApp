@@ -11,7 +11,6 @@ import freelance.service.command.CommandException;
 import freelance.service.command.CommandHandler;
 import freelance.service.command.command.employee.CreateEmployeeCommand;
 import org.springframework.stereotype.Service;
-import freelance.service.command.Command.Usecase;
 
 import java.util.Set;
 import java.util.stream.Collectors;

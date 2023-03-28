@@ -1,10 +1,10 @@
 package freelance.service.command.command.billing;
 
 import freelance.service.command.Command;
-import freelance.service.command.CommandException;
 import freelance.service.command.Command.Usecase;
+import freelance.service.command.CommandException;
 import freelance.service.command.handler.billing.UpdateBillingUserCommandHandler;
-import freelance.service.command.handler.billing.UpdateValidationStatusCommandHandler;
+import freelance.service.command.utils.validation.NotEmptyNumber;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,12 +19,13 @@ import lombok.experimental.SuperBuilder;
 
 @Usecase(handlers = {UpdateBillingUserCommandHandler.class})
 public class UpdateBillingUserCommand implements Command {
+    @NotEmptyNumber
     Long billingId;
     Long userId;
     @Override
     public void validateStateBeforeHandling() {
         if(billingId==null){
-            throw new CommandException("freelance Id is not provided");
+            throw new CommandException("freelance id is not provided");
         }
         if(userId==null){
             throw new CommandException("user id is not provided");

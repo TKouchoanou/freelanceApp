@@ -4,16 +4,12 @@ import freelance.domain.models.entity.Billing;
 import freelance.domain.models.objetValue.BillingId;
 import freelance.domain.models.objetValue.PaymentStatus;
 import freelance.domain.repository.BillingRepository;
-import freelance.domain.repository.CompanyRepository;
-import freelance.domain.repository.RibRepository;
-import freelance.domain.repository.UserRepository;
 import freelance.domain.security.Auth;
 import freelance.service.command.Command;
 import freelance.service.command.CommandHandler;
 import freelance.service.command.command.billing.UpdatePaymentStatusCommand;
 import freelance.service.command.utils.AuthProvider;
 import org.springframework.stereotype.Service;
-import freelance.service.command.Command.Usecase;
 
 @Service
 public class UpdatePaymentStatusCommandHandler implements CommandHandler {

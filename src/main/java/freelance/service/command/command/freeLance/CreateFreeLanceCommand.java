@@ -3,7 +3,7 @@ package freelance.service.command.command.freeLance;
 import freelance.service.command.Command;
 import freelance.service.command.CommandException;
 import freelance.service.command.handler.freeLance.CreateFreeLanceCommandHandler;
-import freelance.service.command.handler.rib.CreateRibCommandHandler;
+import freelance.service.command.utils.validation.NotEmptyNumber;
 import freelance.service.utils.TypeUtils;
 import lombok.*;
 
@@ -14,9 +14,12 @@ import lombok.*;
 @Setter
 @Command.Usecase(handlers = CreateFreeLanceCommandHandler.class)
 public class CreateFreeLanceCommand implements Command {
+    Long id;
+    @NotEmptyNumber
     Long ribId;
+    @NotEmptyNumber
     Long userId;
-    Long freeLanceId;
+    @NotEmptyNumber
     Long companyId;
     @Override
     public void validateStateBeforeHandling() {
@@ -33,7 +36,7 @@ public class CreateFreeLanceCommand implements Command {
     }
     @Override
     public void validateStateAfterHandling() {
-       if(!TypeUtils.hasValue(freeLanceId)){
+       if(!TypeUtils.hasValue(id)){
            throw new CommandException("command handling failure because freelance id is not provided");
        }
     }

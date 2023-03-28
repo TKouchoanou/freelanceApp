@@ -4,10 +4,15 @@ import freelance.service.command.Command;
 import freelance.service.command.Command.Usecase;
 import freelance.service.command.CommandException;
 import freelance.service.command.handler.employee.UpdateEmployeeCommandHandler;
+import freelance.service.command.utils.validation.NotEmptyNumber;
 import freelance.service.utils.TypeUtils;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -15,7 +20,8 @@ import java.util.List;
 @Setter
 @Usecase(handlers = {UpdateEmployeeCommandHandler.class})
 public class UpdateEmployeeCommand implements Command {
-    List<String> roles;
+    Set<String> roles;
+    @NotEmptyNumber
     Long employeeId;
     @Override
     public void validateStateBeforeHandling() {

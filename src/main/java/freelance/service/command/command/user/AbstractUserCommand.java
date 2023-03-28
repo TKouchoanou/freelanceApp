@@ -1,25 +1,21 @@
 package freelance.service.command.command.user;
 
 
-import freelance.domain.models.objetValue.Profile;
 import freelance.service.command.Command;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-@AllArgsConstructor
-@NoArgsConstructor
 @SuperBuilder
+@NoArgsConstructor
 @Getter
 @Setter
 public abstract class AbstractUserCommand implements Command {
-    Long id;
+    @NotBlank
     String firstName;
+    @NotBlank
     String lastName;
-    String email;
-
     boolean isActive;
 }

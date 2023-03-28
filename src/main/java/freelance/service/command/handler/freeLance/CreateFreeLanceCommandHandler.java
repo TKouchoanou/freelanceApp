@@ -36,13 +36,12 @@ public class CreateFreeLanceCommandHandler implements CommandHandler {
   @Override
     public void handle(Command command, HandlingContext handlingContext) {
         // Vérifier si la commande est de type CreateFreeLanceCommand
-        if (!(command instanceof CreateFreeLanceCommand)) {
+        if (!(command instanceof CreateFreeLanceCommand cmd)) {
             return;
         }
 
         // Obtenir l'ID de l'utilisateur de la commande
-        CreateFreeLanceCommand cmd = (CreateFreeLanceCommand) command;
-        UserId userId = new UserId(cmd.getUserId());
+      UserId userId = new UserId(cmd.getUserId());
 
         // Vérifier si un profil de freelance existe déjà pour cet utilisateur
         Optional<Freelance> optionalFreelance = freelanceRepository.findByUserId(userId);
@@ -80,6 +79,6 @@ public class CreateFreeLanceCommandHandler implements CommandHandler {
         }
 
         // Définir l'ID du profil de freelance créé dans la commande
-        cmd.setFreeLanceId(freelance.getId().value());
+        cmd.setId(freelance.getId().value());
     }
 }

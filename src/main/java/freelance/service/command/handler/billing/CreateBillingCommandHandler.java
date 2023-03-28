@@ -15,7 +15,7 @@ import freelance.service.command.command.billing.CreateBillingCommand;
 import freelance.service.command.utils.AuthProvider;
 import org.javamoney.moneta.Money;
 import org.springframework.stereotype.Service;
-import freelance.service.command.Command.Usecase;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 @Service

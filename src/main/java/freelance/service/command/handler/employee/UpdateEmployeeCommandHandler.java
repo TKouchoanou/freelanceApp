@@ -8,7 +8,6 @@ import freelance.domain.security.Auth;
 import freelance.service.command.Command;
 import freelance.service.command.CommandHandler;
 import freelance.service.command.command.employee.UpdateEmployeeCommand;
-import freelance.service.command.Command.Usecase;
 import freelance.service.command.utils.AuthProvider;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,4 @@
 package freelance.service.command.handler.freeLance;
-import freelance.domain.repository.UserRepository;
-import freelance.service.command.Command.Usecase;
 import freelance.domain.models.entity.Company;
 import freelance.domain.models.entity.Freelance;
 import freelance.domain.models.entity.Rib;
@@ -39,7 +37,7 @@ public class UpdateFreeLanceCommandHandler implements CommandHandler {
         }
         Auth auth = authProvider.getCurrentAuth();
         Company company,oldCompany; Rib rib,oldRib;
-        Freelance freelance = freelanceRepository.getById(new FreelanceId(cmd.getFreeLanceId()));
+        Freelance freelance = freelanceRepository.getById(new FreelanceId(cmd.getId()));
         if(TypeUtils.hasValue(cmd.getCompanyId())){
              company= companyRepository.getById(new CompanyId(cmd.getCompanyId()));
              oldCompany= companyRepository.getById(new CompanyId(cmd.getCompanyId()));

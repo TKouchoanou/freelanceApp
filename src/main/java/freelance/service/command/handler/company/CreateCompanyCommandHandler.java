@@ -8,7 +8,6 @@ import freelance.domain.repository.RibRepository;
 import freelance.service.command.Command;
 import freelance.service.command.CommandHandler;
 import freelance.service.command.command.company.CreateCompanyCommand;
-import freelance.service.command.Command.Usecase;
 import org.springframework.stereotype.Service;
 
 @Service
