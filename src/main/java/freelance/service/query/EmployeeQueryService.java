@@ -3,7 +3,6 @@ package freelance.service.query;
 import freelance.domain.models.objetValue.EmployeeRole;
 import freelance.service.query.annotation.RolesAllowed;
 import freelance.service.query.model.Employee;
-import freelance.service.query.model.EmployeeSummary;
 import freelance.service.query.query.SearchEmployeeQuery;
 
 import java.util.List;

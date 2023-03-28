@@ -15,4 +15,8 @@ public interface RibQueryService {
     Stream<Rib> searchByUserName(String userName);
     @RolesAllowed(value = {EmployeeRole.ADMIN,EmployeeRole.HUMAN_RESOURCE})
     Stream<Rib> search(SearchRibQuery searchRibQuery);
+    @RolesAllowed(value = {EmployeeRole.ADMIN,EmployeeRole.HUMAN_RESOURCE})
+    Optional<Rib> getById(Long id);
+    @RolesAllowed(value = {EmployeeRole.ADMIN,EmployeeRole.HUMAN_RESOURCE},allowOwner = true)
+    Stream<Rib> getAll();
 }

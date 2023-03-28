@@ -19,5 +19,5 @@ public class Freelance {
     User user;
     Rib rib;
     Company company;
-    Set<BillingSummary> billing=new HashSet<>();
+    Set<BillingSummary> billing;
 }

@@ -1,13 +1,10 @@
 package freelance.service.query.model;
 
 
-
-import freelance.domain.models.objetValue.Profile;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
 import java.util.Set;
 @Setter
 @Getter
@@ -19,7 +16,7 @@ public class Employee {
     String firstName;
     String lastName;
     String email;
-    Set<String> profiles=new HashSet<>();
+    Set<String> profiles;
     boolean isActive;
 
 }
