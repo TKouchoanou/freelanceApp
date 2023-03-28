@@ -9,4 +9,7 @@ import java.util.Optional;
 
 public interface EmployeeRepository extends CrudRepository<Employee, EmployeeId>{
     Optional<Employee> findByUserId(UserId userId) ;
+    default String getEntityName() {
+        return "Employee";
+    }
 }
