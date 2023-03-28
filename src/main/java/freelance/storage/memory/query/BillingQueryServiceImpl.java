@@ -68,6 +68,7 @@ public class BillingQueryServiceImpl implements BillingQueryService {
         return  freelance.service.query.model.
                 Billing
                 .builder()
+                .id(billing.getId().id())
                 .ended(billing.getPeriod().ended())
                 .started(billing.getPeriod().started())
                 .amountHT(billing.getAmountHT())
