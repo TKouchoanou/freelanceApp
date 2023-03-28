@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+    <layout:fragment name="head">
+        <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" />
+        <!-- Contenu spécifique à la section head de la page d'accueil -->
+    </layout:fragment>
+</head>
+<body>
+<div th:replace="layout/nav"></div>
+<div layout:fragment="content" class="container">
+    <h1>Edit User</h1>
+    <form th:action="@{'/users/' + ${user.id} + '/edit'}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
+            <p class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First Name Error</p>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
+            <p class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last Name Error</p>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" />
+            <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>
+        </div>
+        </br>
+
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="isActive" th:field="*{isActive}" value="true" />
+            <label class="form-check-label" for="isActive" th:text="${user.isActive} ? 'Active' : 'Inactive'">Active</label>
+        </div>
+        </br>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+  var isActiveCheckbox = document.getElementById("isActive");
+  isActiveCheckbox.addEventListener("click", toggleIsActive);
+   console.log(isActiveCheckbox);
+  function toggleIsActive() {
+
+    if (isActiveCheckbox.checked) {
+    console.log(isActiveCheckbox.checked);
+      isActiveCheckbox.value = true;
+    } else {
+     console.log(isActiveCheckbox.checked);
+      isActiveCheckbox.value = false;
+    }
+  }
+});
+</script>
+</body>
+
+</html>
+
+
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+    <h1>Edit User</h1>
+    <form th:action="@{'/users/' + ${user.id} + '/edit'}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" />
+        </div>
+        </br>
+
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="isActive" th:field="*{isActive}" value="true" />
+            <label class="form-check-label" for="isActive" th:text="${user.isActive} ? 'Active' : 'Inactive'">Active</label>
+        </div>
+        </br>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+  var isActiveCheckbox = document.getElementById("isActive");
+  isActiveCheckbox.addEventListener("click", toggleIsActive);
+   console.log(isActiveCheckbox);
+  function toggleIsActive() {
+
+    if (isActiveCheckbox.checked) {
+    console.log(isActiveCheckbox.checked);
+      isActiveCheckbox.value = true;
+    } else {
+     console.log(isActiveCheckbox.checked);
+      isActiveCheckbox.value = false;
+    }
+  }
+});
+</script>
+</body>
+</html> -->
+<!--
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.0-beta3/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Create User</h1>
+    <form action="#" th:action="@{/users/create}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" required>
+            <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" th:field="*{passWord}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>
+</body>
+</html>
+
+-->

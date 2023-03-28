@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Freelance</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="layout/nav"></div>
+<div class="container">
+  <h1>Update Freelance</h1>
+  <form th:action="@{'/freelances/' + ${freelance.freeLanceId} + '/edit'}" th:object="${freelance}" method="post">
+    <input type="hidden" th:field="*{freeLanceId}">
+    <div class="form-group">
+      <label for="companyId">Company Id:</label>
+      <input type="text" class="form-control" id="companyId" th:field="*{companyId}">
+    </div>
+    <div class="form-group">
+      <label for="ribId">RIB ID:</label>
+      <input type="number" class="form-control" id="ribId" th:field="*{ribId}" required/>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+</body>
+</html>

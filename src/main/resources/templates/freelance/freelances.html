@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Freelances List</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="layout/nav"></div>
+<div class="container">
+  <h1>Freelances List</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Company</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="freelance : ${freelances}">
+      <td th:text="${freelance.id}"></td>
+      <td th:text="${freelance.firstName}"></td>
+      <td th:text="${freelance.lastName}"></td>
+      <td th:text="${freelance.email}"></td>
+      <td th:text="${freelance.companyName}"></td>
+      <td>
+        <a th:href="@{/freelances/{id}/edit(id=${freelance.id})}"
+           class="btn btn-primary btn-sm">Edit</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+</body>
+</html>

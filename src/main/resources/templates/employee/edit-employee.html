@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>Update Employee</title>
+  <!-- inclusion des fichiers CSS de Bootstrap -->
+  <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css}"/>
+</head>
+
+<body>
+<div th:replace="layout/nav"></div>
+<div class="container">
+  <h1>Update Employee</h1>
+
+  <!--  formulaire pour saisir les données du command -->
+  <form th:action="@{/employees/{id}/edit(id=${updateEmployeeCommand.employeeId})}" th:object="${updateEmployeeCommand}" method="post">
+    <th:block th:if="${#fields.hasErrors('*')}">
+      <div class="alert alert-danger">
+        <p>Please correct the following errors:</p>
+        <ul>
+          <li th:each="err : ${#fields.errors('*')}"
+              th:text="${err}"></li>
+        </ul>
+      </div>
+    </th:block>
+
+    <div class="form-group">
+      <input type="hidden" class="form-control" id="employeeId" name="employeeId"
+             th:field="*{employeeId}"/>
+      <!-- affichage d'un message d'erreur pour le champ 'employeeId' -->
+      <span th:if="${#fields.hasErrors('employeeId')}"
+            th:errors="*{employeeId}"
+            class="alert alert-danger"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="roles">Roles:</label>
+      <select multiple class="form-control" id="roles" name="roles" th:field="*{roles}">
+        <th:block th:each="role : ${roles}">
+          <option th:selected="${#arrays.contains(updateEmployeeCommand.roles, role)}" th:value="${role}" th:text="${role}"></option>
+        </th:block>
+      </select>
+      <!-- affichage d'un message d'erreur pour le champ 'roles' -->
+      <span th:if="${#fields.hasErrors('roles')}"
+            th:errors="*{roles}"
+            class="alert alert-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Employee</button>
+  </form>
+</div>
+
+</body>
+
+</html>

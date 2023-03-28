@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<head>
+  <meta charset="UTF-8">
+  <title>Create RIB</title>
+  <layout:fragment name="head">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.0-beta3/css/bootstrap.min.css}">
+    <!-- Contenu spécifique à la section head de la page d'accueil -->
+  </layout:fragment>
+</head>
+<body>
+<div th:replace="layout/nav"></div>
+<div class="container mt-3">
+  <h1>Create RIB</h1>
+  <form method="post" th:action="@{/ribs}" th:object="${rib}">
+    <div class="mb-3">
+      <label class="form-label">Username</label>
+      <input type="text" class="form-control" name="username" required th:maxlength="50"/>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">IBAN</label>
+      <input type="text" class="form-control" name="iban" required pattern="FR\\d{12}[A-Z0-9]{11}\\d{2}" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">BIC</label>
+      <input type="text" class="form-control" name="bic" required pattern="\\b[A-Z]{8}(?:[A-Z]{3})?\\b" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Clé RIB</label>
+      <input type="text" class="form-control" name="cleRib" required pattern="^\\d{2}$" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+  </form>
+</div>
+</body>
+</html>

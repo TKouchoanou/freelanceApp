@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Billing Summary List</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    >
+</head>
+<body>
+<div th:replace="layout/nav"></div>
+<div class="container">
+    <h1>Billing Summary List</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Started</th>
+            <th>Ended</th>
+            <th>Amount TTC</th>
+            <th>Amount HT</th>
+            <th>File URI</th>
+            <th>Payment Status</th>
+            <th>Validation Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="billing : ${billings}">
+            <td th:text="${billing.id}"></td>
+            <td th:text="${billing.started}"></td>
+            <td th:text="${billing.ended}"></td>
+            <td th:text="${billing.amountTTC}"></td>
+            <td th:text="${billing.amountHT}"></td>
+            <td><a th:href="${billing.fileUri}" th:text="${billing.fileUri}">Upload</a></td>
+            <td th:text="${billing.paymentStatus}"></td>
+            <td th:text="${billing.validationStatus}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

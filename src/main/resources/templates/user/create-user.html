@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorator="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+    <layout:fragment name="head">
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.0-beta3/css/bootstrap.min.css}">
+        <!-- Contenu spécifique à la section head de la page d'accueil -->
+    </layout:fragment>
+</head>
+<body>
+<div th:replace="layout/nav"></div>
+    <!-- Contenu de votre page d'accueil -->
+
+
+<div layout:fragment="content" class="container">
+    <h1>Create User</h1>
+    <form action="#" th:action="@{/users/create}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" required>
+            <div th:if="${#fields.hasErrors('email')}" class="text-danger">
+                <p th:errors="*{email}"></p>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" th:field="*{passWord}" required>
+        </div>
+        <div class="mb-3">
+            <label for="passwordConfirmation" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="passwordConfirmation" th:field="*{passWordConfirmation}" required>
+            <div th:if="${#fields.hasErrors('passWordConfirmation')}" class="text-danger">
+                <p th:errors="*{passWordConfirmation}"></p>
+            </div>
+        </div>
+        <div th:if="${#fields.hasErrors()}">
+            <div class="alert alert-danger mt-3" role="alert">
+                <ul>
+                    <li th:each="error : ${#fields.errors()}">
+                        <span th:text="${error}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+
+</div>
+</body>
+</html>
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.0-beta3/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Create User</h1>
+    <form action="#" th:action="@{/users/create}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" th:field="*{passWord}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>
+</body>
+</html>
+-->

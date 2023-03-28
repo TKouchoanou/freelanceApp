@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Freelance</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+</head>
+<body>
+<div th:replace="layout/nav"></div>
+<div class="container">
+  <h1>Create Freelance</h1>
+  <form th:action="@{/freelances/create}" th:object="${freelance}" method="post">
+    <div class="form-group">
+      <label for="ribId">RIB ID:</label>
+      <input type="number" class="form-control" id="ribId" th:field="*{ribId}" required/>
+    </div>
+
+    <input type="hidden" class="form-control" id="userId" th:field="*{userId}" required/>
+
+    <div class="form-group">
+      <label for="companyId">Company ID:</label>
+      <input type="number" class="form-control" id="companyId" th:field="*{companyId}" required/>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+  </form>
+</div>
+</body>
+</html>

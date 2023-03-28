@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  th:replace="layout :: content">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">
+        Mon site - Titre de la page
+    </title>
+    <layout:fragment name="head">
+        <!-- Contenu spécifique à la section head -->
+
+    </layout:fragment>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Mon application</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navUsers" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Users</a>
+                    <div class="dropdown-menu" aria-labelledby="navUsers">
+                        <a class="dropdown-item" href="#">Liste des utilisateurs</a>
+                        <a class="dropdown-item" href="#">Créer un utilisateur</a>
+                        <a class="dropdown-item" href="#">Modifier un utilisateur</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navFreelance" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Freelance</a>
+                    <div class="dropdown-menu" aria-labelledby="navFreelance">
+                        <a class="dropdown-item" href="#">Liste des freelances</a>
+                        <a class="dropdown-item" href="#">Créer un freelance</a>
+                        <a class="dropdown-item" href="#">Modifier un freelance</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navEmployee" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Employee</a>
+                    <div class="dropdown-menu" aria-labelledby="navEmployee">
+                        <a class="dropdown-item" href="#">Liste des employés</a>
+                        <a class="dropdown-item" href="#">Créer un employé</a>
+                        <a class="dropdown-item" href="#">Modifier un employé</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navBilling" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Billing</a>
+                    <div class="dropdown-menu" aria-labelledby="navBilling">
+                        <a class="dropdown-item" href="#">Liste des factures</a>
+                        <a class="dropdown-item" href="#">Créer une facture</a>
+                        <a class="dropdown-item" href="#">Modifier une facture</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navRib" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">RIB</a>
+                    <div class="dropdown-menu" aria-labelledby="navRib">
+                        <a class="dropdown-item" href="#">Liste des RIB</a>
+                        <a class="dropdown-item" href="#">Créer un RIB</a>
+                        <a class="dropdown-item" href="#">Modifier un RIB</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<main layout:fragment="content">
+    <!-- Contenu spécifique à chaque page -->
+</main>
+    <!-- Contenu de votre pied de page -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a href="#">Accueil</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">À propos</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

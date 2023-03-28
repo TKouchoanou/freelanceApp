@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee List</title>
+  <!-- Inclusion des fichiers CSS de Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="layout/nav"></div>
+<div class="container">
+  <h1>Liste des employés</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Email</th>
+      <th>Roles</th>
+      <th>Profiles</th>
+      <th>Actif</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Pour chaque employé dans la liste -->
+    <tr th:each="employee : ${employees}">
+      <td th:text="${employee.id}"></td>
+      <td th:text="${employee.firstName} + ' ' + ${employee.lastName}"></td>
+      <td th:text="${employee.email}"></td>
+      <td>
+        <ul>
+          <!-- Pour chaque rôle de l'employé -->
+          <li th:each="role : ${employee.roles}" th:text="${role}"></li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <!-- Pour chaque profil de l'employé -->
+          <li th:each="profile : ${employee.profiles}" th:text="${profile}"></li>
+        </ul>
+      </td>
+      <td>
+        <!-- Affichage d'une coche si l'employé est actif -->
+        <span th:if="${employee.isActive}" class="text-success">&#10004;</span>
+        <span th:unless="${employee.isActive}" class="text-danger">&#10008;</span>
+      </td>
+      <td>
+        <a th:href="@{/employees/{id}/edit(id=${employee.id})}" class="btn btn-sm btn-primary">Modifier</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <a th:href="@{/users}" class="btn btn-primary">Liste Utilisateurs</a>
+</div>
+</body>
+</html>

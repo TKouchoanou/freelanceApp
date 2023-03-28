@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des utilisateurs</title>
+    <layout:fragment name="head">
+        <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}" />
+        <!-- Contenu spécifique à la section head de la page d'accueil -->
+    </layout:fragment>
+</head>
+<body>
+<div th:replace="layout/nav"></div>
+<div layout:fragment="content" class="container">
+
+    <h1>Liste des utilisateurs</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Profiles</th>
+            <th>Statut</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                <ul>
+                    <!-- Pour chaque profil -->
+                    <li th:each="profile : ${user.profiles}" th:text="${profile}"></li>
+                </ul>
+            </td>
+            <td th:text="${user.isActive ? 'Activé' : 'Désactivé'}"></td>
+            <td>
+                <a th:href="@{/users/{id}/edit(id=${user.id})}" class="btn btn-sm btn-primary mr-2 mb-2">Modifier</a>
+                <a th:if="${!#arrays.contains(user.profiles, 'SALARY')}" th:href="@{/employees/{userId}/create(userId=${user.id})}" class="btn btn-sm btn-success mr-2 mb-2">Créer employee</a>
+                <a th:if="${#arrays.contains(user.profiles, 'SALARY')}"  class="btn btn-sm btn-success mr-2 mb-2 disabled">Créer employee</a>
+                <a th:if="${!#arrays.contains(user.profiles, 'FREELANCE')}" th:href="@{/freelances/{userId}/create(userId=${user.id})}" class="btn btn-sm btn-info mr-2 mb-2">Créer Freelance</a>
+                <a th:if="${#arrays.contains(user.profiles, 'FREELANCE')}"  class="btn btn-sm btn-info mr-2 mb-2 disabled">Créer Freelance</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/users/create}" class="btn btn-primary">Créer utilisateur</a>
+</div>
+</body>
+</html>

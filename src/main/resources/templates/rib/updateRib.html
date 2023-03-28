@@ -1,0 +1,62 @@
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/layout">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Update RIB</title>
+  <layout:fragment name="head">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.0-beta3/css/bootstrap.min.css}">
+    <!-- Contenu spécifique à la section head de la page d'accueil -->
+  </layout:fragment>
+</head>
+<body>
+<div th:replace="layout/nav"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Update RIB</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form th:action="@{/ribs/edit/{id}(id=${updateRibCommand.ribId})}" th:object="${updateRibCommand}" method="post">
+        <input type="hidden" class="form-control" id="ribId" th:field="*{ribId}" required="required"/>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" class="form-control" id="username" th:field="*{username}" required="required"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+        </div>
+        <div class="form-group">
+          <label for="iban">IBAN:</label>
+          <input type="text" class="form-control" id="iban" th:field="*{iban}" required="required"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('iban')}" th:errors="*{iban}"></span>
+        </div>
+        <div class="form-group">
+          <label for="bic">BIC:</label>
+          <input type="text" class="form-control" id="bic" th:field="*{bic}" required="required"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('bic')}" th:errors="*{bic}"></span>
+        </div>
+        <div class="form-group">
+          <label for="cleRib">CLE RIB:</label>
+          <input type="text" class="form-control" id="cleRib" th:field="*{cleRib}" required="required"/>
+          <span class="text-danger" th:if="${#fields.hasErrors('cleRib')}" th:errors="*{cleRib}"></span>
+        </div>
+        </br>
+        <div th:if="${#fields.hasErrors()}">
+          <div class="alert alert-danger mt-3" role="alert">
+            <ul>
+              <li th:each="error : ${#fields.errors()}">
+                <span th:text="${error}"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

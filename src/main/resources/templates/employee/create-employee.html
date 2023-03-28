@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Créer un employé</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+  <h1>Créer un nouvel employé</h1>
+  <form th:action="@{/employees/create}" method="post" th:object="${createEmployeeCommand}">
+    <div class="form-group">
+      <label for="roles">Rôles</label>
+      <select multiple class="form-control" id="roles"  th:field="*{roles}" >
+          <!-- Pour chaque rôle dans la liste -->
+          <th:block th:each="role : ${roles}">
+            <option th:value="${role}" th:text="${role}"></option>
+          </th:block>
+      </select>
+    </div>
+      <input type="hidden" class="form-control" id="create-employee-userId" th:field="*{userId}">
+    <button type="submit" class="btn btn-primary">Créer</button>
+  </form>
+</div>
+
+</body>
+</html>
