@@ -1,6 +1,7 @@
 package freelance.storage.memory;
 
 import freelance.domain.models.entity.User;
+import freelance.domain.models.objetValue.Email;
 import freelance.domain.models.objetValue.UserId;
 import freelance.domain.repository.UserRepository;
 import org.springframework.stereotype.Repository;
@@ -64,5 +65,13 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public <S extends User> List<S> saveAll(Iterable<S> entities) {
         return null;
+    }
+
+    @Override
+    public Optional<User> findByEmail(Email email) {
+        return stores.values()
+                .stream()
+                .filter(user -> user.getEmail().equals(email))
+                .findAny();
     }
 }

@@ -82,6 +82,7 @@ public class ZMapUtils {
     }
     public static FreelanceSummary toQuery(freelance.domain.models.entity.Freelance freelance, User user, Company company){
         return  FreelanceSummary.builder()
+                .id(user.getId().id())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .companyName(company.getName())
@@ -102,6 +103,7 @@ public class ZMapUtils {
                .firstName(user.getFirstName())
                .isActive(user.isActive())
                .userid(user.getId().id())
+               .id(employee.getId().value())
                .profiles(user.getProfiles().stream().map(Profile::name).collect(Collectors.toSet()))
                .build();
     }

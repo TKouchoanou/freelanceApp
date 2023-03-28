@@ -31,7 +31,7 @@ public class BillingRepositoryImpl implements BillingRepository {
 
     @Override
     public Stream<Billing> findAll() {
-        return null;
+        return stores.values().stream();
     }
 
     @Override

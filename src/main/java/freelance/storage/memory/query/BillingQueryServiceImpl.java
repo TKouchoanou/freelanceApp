@@ -7,6 +7,7 @@ import freelance.domain.repository.BillingRepository;
 import freelance.domain.repository.CompanyRepository;
 import freelance.service.query.BillingQueryService;
 import freelance.service.query.model.Billing;
+import freelance.service.query.model.BillingSummary;
 import freelance.service.query.query.SearchBillingQuery;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,20 @@ public class BillingQueryServiceImpl implements BillingQueryService {
     @Override
     public List<Billing> getAllBillings() {
         return billingRepository.findAll().map(this::toQuery).toList();
+    }
+
+    @Override
+    public List<BillingSummary> getAllBillingsSummary() {
+        return this.getAllBillings().stream().map(billing -> BillingSummary.builder()
+                 .id(billing.getId())
+                 .started(billing.getStarted())
+                 .ended(billing.getEnded())
+                 .paymentStatus(billing.getPaymentStatus())
+                 .validationStatus(billing.getValidationStatus())
+                 .amountHT(billing.getAmountHT())
+                 .amountTTC(billing.getAmountTTC())
+                 .fileUri("/erreer/")
+                 .build()).toList();
     }
 
     @Override
