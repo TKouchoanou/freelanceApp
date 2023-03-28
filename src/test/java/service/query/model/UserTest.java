@@ -1,6 +1,6 @@
 package service.query.model;
 
-import freelance.service.query.model.User;
+import freelance.application.query.model.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;

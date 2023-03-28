@@ -1,18 +1,16 @@
 package domain.model;
 
-import freelance.domain.exception.DomainException;
-import freelance.domain.models.entity.Employee;
-import freelance.domain.models.entity.User;
-import freelance.domain.models.objetValue.*;
-import freelance.domain.security.Auth;
+import freelance.domain.common.exception.DomainException;
+import freelance.domain.core.entity.Employee;
+import freelance.domain.core.entity.User;
+import freelance.domain.core.objetValue.*;
+import freelance.domain.common.security.Auth;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class EmployeeTest {
     @Test

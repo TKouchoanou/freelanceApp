@@ -1,8 +1,8 @@
 package service.command;
 
-import freelance.service.command.CommandException;
-import freelance.service.command.command.user.CreateUserCommand;
-import freelance.service.command.command.user.UpdateUserCommand;
+import freelance.application.command.CommandException;
+import freelance.application.command.command.user.CreateUserCommand;
+import freelance.application.command.command.user.UpdateUserCommand;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

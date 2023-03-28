@@ -1,9 +1,9 @@
 package domain.model;
 
-import freelance.domain.exception.DomainException;
-import freelance.domain.models.entity.*;
-import freelance.domain.models.objetValue.*;
-import freelance.domain.security.Auth;
+import freelance.domain.common.exception.DomainException;
+import freelance.domain.core.entity.*;
+import freelance.domain.core.objetValue.*;
+import freelance.domain.common.security.Auth;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

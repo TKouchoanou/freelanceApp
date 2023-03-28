@@ -1,7 +1,7 @@
 package service.command;
 
-import freelance.service.command.CommandException;
-import freelance.service.command.command.billing.CreateBillingCommand;
+import freelance.application.command.CommandException;
+import freelance.application.command.command.billing.CreateBillingCommand;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

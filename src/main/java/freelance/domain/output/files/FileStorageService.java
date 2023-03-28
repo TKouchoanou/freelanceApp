@@ -1,6 +1,6 @@
 package freelance.domain.output.files;
 
-import freelance.domain.models.objetValue.File;
+import freelance.domain.core.objetValue.File;
 
 import java.nio.file.Path;
 import java.util.UUID;

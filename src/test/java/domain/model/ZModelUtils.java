@@ -1,15 +1,14 @@
 package domain.model;
 
-import freelance.domain.models.entity.*;
-import freelance.domain.models.objetValue.*;
-import freelance.domain.security.Auth;
+import freelance.domain.core.entity.*;
+import freelance.domain.core.objetValue.*;
+import freelance.domain.common.security.Auth;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ZModelUtils {
 

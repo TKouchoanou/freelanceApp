@@ -2,11 +2,11 @@ package service.query;
 
 import domain.model.ZModelUtils;
 import freelance.Application;
-import freelance.domain.repository.UserRepository;
-import freelance.service.command.utils.AuthProvider;
-import freelance.service.query.UserQueryService;
-import freelance.service.query.model.User;
-import freelance.service.query.query.SearchUserQuery;
+import freelance.domain.output.repository.UserRepository;
+import freelance.application.command.utils.AuthProvider;
+import freelance.application.query.UserQueryService;
+import freelance.application.query.model.User;
+import freelance.application.query.query.SearchUserQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

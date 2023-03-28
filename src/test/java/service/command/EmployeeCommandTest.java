@@ -1,14 +1,11 @@
 package service.command;
 
-import freelance.domain.models.objetValue.EmployeeId;
-import freelance.service.command.CommandException;
-import freelance.service.command.command.employee.CreateEmployeeCommand;
-import freelance.service.command.command.employee.UpdateEmployeeCommand;
-import freelance.service.command.command.user.CreateUserCommand;
+import freelance.application.command.CommandException;
+import freelance.application.command.command.employee.CreateEmployeeCommand;
+import freelance.application.command.command.employee.UpdateEmployeeCommand;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class EmployeeCommandTest {

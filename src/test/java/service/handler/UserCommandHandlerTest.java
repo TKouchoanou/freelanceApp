@@ -1,10 +1,10 @@
 package service.handler;
 
 import freelance.Application;
-import freelance.service.command.CommandManager;
-import freelance.service.command.command.user.ChangePassWordCommand;
-import freelance.service.command.command.user.CreateUserCommand;
-import freelance.service.command.command.user.UpdateUserCommand;
+import freelance.application.command.CommandManager;
+import freelance.application.command.command.user.ChangePassWordCommand;
+import freelance.application.command.command.user.CreateUserCommand;
+import freelance.application.command.command.user.UpdateUserCommand;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

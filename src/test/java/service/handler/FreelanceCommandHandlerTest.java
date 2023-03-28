@@ -1,12 +1,12 @@
 package service.handler;
 
 import freelance.Application;
-import freelance.service.command.CommandManager;
-import freelance.service.command.command.company.CreateCompanyCommand;
-import freelance.service.command.command.freeLance.CreateFreeLanceCommand;
-import freelance.service.command.command.freeLance.UpdateFreeLanceCommand;
-import freelance.service.command.command.rib.CreateRibCommand;
-import freelance.service.command.command.user.CreateUserCommand;
+import freelance.application.command.CommandManager;
+import freelance.application.command.command.company.CreateCompanyCommand;
+import freelance.application.command.command.freeLance.CreateFreeLanceCommand;
+import freelance.application.command.command.freeLance.UpdateFreeLanceCommand;
+import freelance.application.command.command.rib.CreateRibCommand;
+import freelance.application.command.command.user.CreateUserCommand;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

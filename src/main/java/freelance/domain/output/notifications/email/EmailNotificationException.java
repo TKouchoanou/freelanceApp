@@ -1,6 +1,6 @@
 package freelance.domain.output.notifications.email;
 
-import freelance.domain.exception.DomainException;
+import freelance.domain.common.exception.DomainException;
 
 public class EmailNotificationException extends DomainException {
     public EmailNotificationException(String message, boolean messageI18nKey) {

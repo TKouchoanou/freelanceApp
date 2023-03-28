@@ -1,9 +1,9 @@
 package service.query.model;
 
-import freelance.service.query.model.Billing;
-import freelance.service.query.model.BillingSummary;
-import freelance.service.query.model.Company;
-import freelance.service.query.model.FreelanceSummary;
+import freelance.application.query.model.Billing;
+import freelance.application.query.model.BillingSummary;
+import freelance.application.query.model.Company;
+import freelance.application.query.model.FreelanceSummary;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,7 @@
 package service.query.model;
 
 
-import freelance.service.query.model.*;
+import freelance.application.query.model.*;
 import org.javamoney.moneta.Money;
 import org.junit.jupiter.api.Test;
 

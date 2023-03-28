@@ -1,11 +1,11 @@
 package service.handler;
 
 import freelance.Application;
-import freelance.service.command.CommandManager;
-import freelance.service.command.command.billing.*;
-import freelance.service.command.command.company.CreateCompanyCommand;
-import freelance.service.command.command.rib.CreateRibCommand;
-import freelance.service.command.command.user.CreateUserCommand;
+import freelance.application.command.CommandManager;
+import freelance.application.command.command.billing.*;
+import freelance.application.command.command.company.CreateCompanyCommand;
+import freelance.application.command.command.rib.CreateRibCommand;
+import freelance.application.command.command.user.CreateUserCommand;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @SpringBootTest(classes= Application.class)
 public class BillingCommandHandlerTest {

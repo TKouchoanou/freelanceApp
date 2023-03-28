@@ -1,9 +1,9 @@
 package service.handler;
 
 import freelance.Application;
-import freelance.service.command.CommandManager;
-import freelance.service.command.command.rib.CreateRibCommand;
-import freelance.service.command.command.rib.UpdateRibCommand;
+import freelance.application.command.CommandManager;
+import freelance.application.command.command.rib.CreateRibCommand;
+import freelance.application.command.command.rib.UpdateRibCommand;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

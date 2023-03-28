@@ -1,8 +1,7 @@
 package domain.model;
 
-import freelance.domain.models.entity.*;
-import freelance.domain.models.objetValue.*;
-import freelance.service.command.command.rib.CreateRibCommand;
+import freelance.domain.core.entity.*;
+import freelance.domain.core.objetValue.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

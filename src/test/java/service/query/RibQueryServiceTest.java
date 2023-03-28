@@ -2,10 +2,10 @@ package service.query;
 
 import domain.model.ZModelUtils;
 import freelance.Application;
-import freelance.domain.repository.RibRepository;
-import freelance.service.command.utils.AuthProvider;
-import freelance.service.query.RibQueryService;
-import freelance.service.query.query.SearchRibQuery;
+import freelance.domain.output.repository.RibRepository;
+import freelance.application.command.utils.AuthProvider;
+import freelance.application.query.RibQueryService;
+import freelance.application.query.query.SearchRibQuery;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,7 @@
 package service.command;
 
-import freelance.service.command.CommandException;
-import freelance.service.command.command.freeLance.CreateFreeLanceCommand;
+import freelance.application.command.CommandException;
+import freelance.application.command.command.freeLance.CreateFreeLanceCommand;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

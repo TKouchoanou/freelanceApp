@@ -1,7 +1,7 @@
 package service.command;
 
-import freelance.service.command.command.rib.CreateRibCommand;
-import freelance.service.command.CommandException;
+import freelance.application.command.command.rib.CreateRibCommand;
+import freelance.application.command.CommandException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,12 +1,12 @@
 package domain.model;
 
-import freelance.domain.exception.DomainException;
-import freelance.domain.models.entity.Company;
-import freelance.domain.models.entity.Freelance;
-import freelance.domain.models.entity.Rib;
-import freelance.domain.models.entity.User;
-import freelance.domain.models.objetValue.Profile;
-import freelance.domain.security.Auth;
+import freelance.domain.common.exception.DomainException;
+import freelance.domain.core.entity.Company;
+import freelance.domain.core.entity.Freelance;
+import freelance.domain.core.entity.Rib;
+import freelance.domain.core.entity.User;
+import freelance.domain.core.objetValue.Profile;
+import freelance.domain.common.security.Auth;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
