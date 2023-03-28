@@ -13,7 +13,7 @@ public class FreelanceSummaryTest {
     @Test
     void testBuilder() {
         FreelanceSummary freelanceSummary = FreelanceSummary.builder()
-                .freelanceId(1L)
+                .id(1L)
                 .userId(100L)
                 .firstName("John")
                 .lastName("Doe")
@@ -24,7 +24,7 @@ public class FreelanceSummaryTest {
                 .isActive(true)
                 .build();
 
-        assertEquals(1L, freelanceSummary.getFreelanceId());
+        assertEquals(1L, freelanceSummary.getId());
         assertEquals(100L, freelanceSummary.getUserId());
         assertEquals("John", freelanceSummary.getFirstName());
         assertEquals("Doe", freelanceSummary.getLastName());

@@ -16,7 +16,7 @@ public class BillingTest {
     @Test
     void testBuilder() {
         FreelanceSummary freelance = FreelanceSummary.builder()
-                .freelanceId(1L)
+                .id(1L)
                 .userId(100L)
                 .firstName("John")
                 .lastName("Doe")

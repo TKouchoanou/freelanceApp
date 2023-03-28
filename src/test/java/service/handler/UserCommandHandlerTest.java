@@ -2,8 +2,6 @@ package service.handler;
 
 import freelance.Application;
 import freelance.service.command.CommandManager;
-import freelance.service.command.command.rib.CreateRibCommand;
-import freelance.service.command.command.rib.UpdateRibCommand;
 import freelance.service.command.command.user.ChangePassWordCommand;
 import freelance.service.command.command.user.CreateUserCommand;
 import freelance.service.command.command.user.UpdateUserCommand;
@@ -74,8 +72,8 @@ public class UserCommandHandlerTest {
         ChangePassWordCommand changePassWordCommand= ChangePassWordCommand
                 .builder()
                 .userId(createCommand.getId())
-                .newPassWordConfirmation(password)
-                .newPassWord(password)
+                .newPasswordConfirmation(password)
+                .newPassword(password)
                 .build();
 
         Assertions.assertDoesNotThrow(()->commandManager.process(changePassWordCommand));

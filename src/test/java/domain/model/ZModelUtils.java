@@ -40,7 +40,7 @@ public     static Freelance createFreelanceWithPersistedRib(){
         return new Employee(new EmployeeId(5L),user.getId(), new HashSet<>(), LocalDateTime.now(),LocalDateTime.now());
     }
   public   static Auth createAuth(EmployeeRole ...employeeRoles){
-        //UserId userId,@Nullable EmployeeId employeeId,@Nullable FreelanceId freelanceId, @Nullable RibId ribId, String firstName, String lastName,
+        //UserId userId,@Nullable EmployeeId employeeId,@Nullable FreelanceId id, @Nullable RibId ribId, String firstName, String lastName,
         //Email email, Set<Profile> profiles, Set<EmployeeRole> employeeRoles
         return new Auth(new UserId(4L),new EmployeeId(1L),new FreelanceId(1L),new RibId(1L),"firsName","lastName",new Email("email.tk@gmail.fr"),new HashSet<>(), Arrays.stream(employeeRoles).collect(Collectors.toSet()));
     }
@@ -55,7 +55,7 @@ public     static Freelance createFreelanceWithPersistedRib(){
         return createAuth(EmployeeRole.HUMAN_RESOURCE);
     }
   public   static Auth createAuth(User user,EmployeeRole ...employeeRoles){
-        //UserId userId,@Nullable EmployeeId employeeId,@Nullable FreelanceId freelanceId, @Nullable RibId ribId, String firstName, String lastName,
+        //UserId userId,@Nullable EmployeeId employeeId,@Nullable FreelanceId id, @Nullable RibId ribId, String firstName, String lastName,
         //Email email, Set<Profile> profiles, Set<EmployeeRole> employeeRoles
         return new Auth(user.getId(),new EmployeeId(1L),new FreelanceId(1L),new RibId(1L),"firsName","lastName",new Email("email.tk@gmail.fr"),new HashSet<>(), new HashSet<>(Arrays.stream(employeeRoles).toList()));
     }

@@ -35,8 +35,8 @@ public class FreelanceCommandHandlerTest {
                 .ribId(createRib().getCreateRibId())
                 .build();
         Assertions.assertDoesNotThrow(()->commandManager.process(command));
-        Assertions.assertNotEquals(null, command.getFreeLanceId());
-        Assertions.assertNotEquals(0L,command.getFreeLanceId());
+        Assertions.assertNotEquals(null, command.getId());
+        Assertions.assertNotEquals(0L,command.getId());
         Assertions.assertDoesNotThrow(()->commandManager.process(command2));
         Assertions.assertDoesNotThrow(()->commandManager.process(command3));
     }
@@ -55,13 +55,13 @@ public class FreelanceCommandHandlerTest {
         UpdateFreeLanceCommand updateCommand= UpdateFreeLanceCommand
                 .builder()
                 .companyId(command.getCompanyId())
-                .freeLanceId(command.getFreeLanceId())
+                .Id(command.getId())
                 .ribId(newRib.getCreateRibId())
                 .build();
 
         Assertions.assertDoesNotThrow(()->commandManager.process(updateCommand));
         Assertions.assertSame(updateCommand.getRibId(),newRib.getRibId());
-        Assertions.assertSame(updateCommand.getFreeLanceId(), command.getFreeLanceId());
+        Assertions.assertSame(updateCommand.getId(), command.getId());
 
     }
     public CreateUserCommand createUser(){
