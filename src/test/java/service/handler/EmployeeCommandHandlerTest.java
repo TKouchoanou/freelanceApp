@@ -10,7 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringBootTest(classes= Application.class)
 public class EmployeeCommandHandlerTest {
@@ -52,7 +54,7 @@ public class EmployeeCommandHandlerTest {
         List<String> roles=List.of("ADMIN","FINANCE");
         UpdateEmployeeCommand updateCommand= UpdateEmployeeCommand
                 .builder()
-                .roles(roles)
+                .roles(new HashSet<>(roles))
                 .employeeId(createCommand.getEmployeeId())
                 .build();
 

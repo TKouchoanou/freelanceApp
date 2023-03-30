@@ -60,7 +60,7 @@ public class FreelanceCommandHandlerTest {
                 .build();
 
         Assertions.assertDoesNotThrow(()->commandManager.process(updateCommand));
-        Assertions.assertSame(updateCommand.getRibId(),newRib.getRibId());
+        Assertions.assertSame(updateCommand.getRibId(),newRib.getCreateRibId());
         Assertions.assertSame(updateCommand.getId(), command.getId());
 
     }

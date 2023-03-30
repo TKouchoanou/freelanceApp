@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Set;
 
 public class EmployeeCommandTest {
     @Test
@@ -25,7 +26,7 @@ public class EmployeeCommandTest {
     public void  updateValidEmployee(){
         UpdateEmployeeCommand command=   UpdateEmployeeCommand
                 .builder()
-                .roles(List.of("ADMIN"))
+                .roles(Set.of("ADMIN"))
                 .build();
 
         Assertions.assertThrows(CommandException.class, command::validateStateBeforeHandling);

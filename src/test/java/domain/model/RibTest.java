@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -61,7 +62,8 @@ public class RibTest {
         rib2 = ZModelUtils.createRibPersisted(2L,"FR1420041010050500013M02606");
         tKcompany = ZModelUtils.createCompany("TK", rib1);
         period= new Period(LocalDate.now(),LocalDate.now().plusDays(3));
-        billingFile= new BillingFile(new byte[2],"file1");
+        File file = new File(UUID.randomUUID(),new byte[2],"file1");
+        billingFile= new BillingFile(file.id(),file.context());
         ht= Money.of(new BigDecimal(1050),"EUR");
         ttc=Money.of(new BigDecimal(1000),"EUR");
     }

@@ -39,7 +39,7 @@ public class RibCommandHandlerTest {
 
         UpdateRibCommand updateCommand =UpdateRibCommand
                 .builder()
-                .ribId(createCommand.getRibId())
+                .ribId(createCommand.getCreateRibId())
                 .cleRib(createCommand.getCleRib())
                 .bic(createCommand.getBic())
                 .iban(createCommand.getIban())
@@ -47,7 +47,7 @@ public class RibCommandHandlerTest {
                 .build();
         Assertions.assertDoesNotThrow(()->commandManager.process(updateCommand));
         Assertions.assertSame(updateCommand.getUsername(),userName);
-        Assertions.assertSame(updateCommand.getRibId(), createCommand.getRibId());
+        Assertions.assertSame(updateCommand.getRibId(), createCommand.getCreateRibId());
 
     }
 }

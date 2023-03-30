@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class BillingTest {
     private Auth admin;
@@ -44,7 +45,8 @@ public class BillingTest {
         tKcompany = ZModelUtils.createCompany("TK", rib1);
         tKSMcompany = ZModelUtils.createCompany("TKSM", rib2);
         period= new Period(LocalDate.now(),LocalDate.now().plusDays(3));
-        billingFile= new BillingFile(new byte[2],"file1");
+        File file = new File(UUID.randomUUID(),new byte[2],"file1");
+        billingFile= new BillingFile(file.id(),file.context(),"fileName");
         ht=Money.of(new BigDecimal(1050),"EUR");
         ttc=Money.of(new BigDecimal(1000),"EUR");
     }
@@ -91,7 +93,7 @@ public class BillingTest {
     public void testChangeFileWithSimpleAuth(){
         Billing billing = new Billing(user,rib1,tKcompany,period,ttc,ht,billingFile);
         Assertions.assertThrows(DomainException.class,
-                ()->billing.changeFile(new BillingFile(new byte[2],"file"),simpleAuth));
+                ()->billing.changeFile(new BillingFile(UUID.randomUUID(),"billing","file1"),simpleAuth));
     }
 
     @Test
