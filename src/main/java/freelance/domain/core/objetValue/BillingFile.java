@@ -1,4 +1,6 @@
 package freelance.domain.core.objetValue;
 
-public record BillingFile(byte[] file,String filename) {
+import java.util.UUID;
+
+public record BillingFile(UUID fileId,String context, String originalName) {
 }
