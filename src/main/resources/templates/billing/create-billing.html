@@ -9,11 +9,12 @@
 </head>
 
 <body>
+<div th:replace="layout/nav"></div>
 <div class="container">
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <h2>Create Billing</h2>
-      <form th:action="@{/billings/new}" method="post" enctype="multipart/form-data">
+      <form th:action="@{/billings/create}" method="post" enctype="multipart/form-data">
         <div class="form-group" th:object="${createBillingCommand}">
         <div class="form-group">
           <label for="ribId">RIB ID</label>
@@ -28,8 +29,16 @@
             <label for="companyId">user ID</label>
             <input type="text" th:field="*{userId}" class="form-control" id="userId" required>
           </div>
+          <div class="form-group">
+            <label for="startedDate">Started Date</label>
+            <input type="date" name="startedDate" th:value="${#dates.format(createBillingCommand.startedDate, 'yyyy-MM-dd')}" class="form-control" id="startedDate" required>
+          </div>
+          <div class="form-group">
+            <label for="endedDate">Ended Date</label>
+            <input type="date" name="endedDate" th:value="${#dates.format(createBillingCommand.endedDate, 'yyyy-MM-dd')}" class="form-control" id="endedDate" required>
+          </div>
 
-        <div class="form-group">
+    <!--    <div class="form-group">
           <label for="startedDate">Started Date</label>
           <input type="date" th:field="*{startedDate}" class="form-control" id="startedDate" required>
         </div>
@@ -37,6 +46,7 @@
           <label for="endedDate">Ended Date</label>
           <input type="date" th:field="*{endedDate}" class="form-control" id="endedDate" required>
         </div>
+        -->
         <div class="form-group">
           <label for="amountHT">Amount HT</label>
           <input type="text" th:field="*{amountHT}" class="form-control" id="amountHT" step="0.01" min="0" required>

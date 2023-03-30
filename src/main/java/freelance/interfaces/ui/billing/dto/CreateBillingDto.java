@@ -1,4 +1,4 @@
-package freelance.interfaces.ui.dto;
+package freelance.interfaces.ui.billing.dto;
 
 import freelance.application.command.command.billing.CreateBillingCommand;
 import lombok.*;

@@ -22,6 +22,8 @@
             <th>File URI</th>
             <th>Payment Status</th>
             <th>Validation Status</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -31,12 +33,15 @@
             <td th:text="${billing.ended}"></td>
             <td th:text="${billing.amountTTC}"></td>
             <td th:text="${billing.amountHT}"></td>
-            <td><a th:href="${billing.fileUri}" th:text="${billing.fileUri}">Upload</a></td>
+            <td><a th:href="${billing.fileUri}" >Upload</a></td>
             <td th:text="${billing.paymentStatus}"></td>
             <td th:text="${billing.validationStatus}"></td>
+            <td><a th:href="@{/billings/{billingId}/edit(billingId=${billing.id})}" class="btn btn-primary">Payment</a></td>
+            <td><a th:href="@{/billings/validation/{billingId}/edit(billingId=${billing.id})}" class="btn btn-primary">Validation</a></td>
         </tr>
         </tbody>
     </table>
+    <a th:href="@{/billings/create}" class="btn btn-primary">Créer Facture</a>
 </div>
 
 

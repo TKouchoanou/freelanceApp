@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Update Payement</title>
+  <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}">
+</head>
+
+<body>
+<div class="container">
+  <div th:replace="layout/nav"></div>
+  <div class="row">
+    <br>
+    <div class="col-md-8 offset-md-2">
+      <h2>Update Payement</h2>
+      <div class="mb-3">
+        <p><strong>Émetteur :</strong> <span th:text="${viewModel.freelance.fullName()}"></span></p>
+        <p><strong>Email Émetteur :</strong> <span th:text="${viewModel.freelance.email}"></span></p>
+      </div>
+     <br>
+      <form th:action="@{/billings/edit}" method="post" enctype="multipart/form-data">
+        <div class="form-group" th:object="${viewModel.updatePaymentStatusCommand}">
+          <div>
+            <label for="billingId"><strong>Billing ID:</strong></label>
+            <input type="text" id="billingId" name="billingId" th:value="*{billingId}" readonly="readonly" />
+          <!--  <input type="hidden" id="billingId" th:field="*{billingId}"  /> -->
+          </div>
+
+          <div class="form-group">
+            <label for="startedDate"><strong>Started Date:</strong></label>
+            <input type="date" name="startedDate" th:value="${#dates.format(viewModel.startedDate, 'yyyy-MM-dd')}" class="form-control" id="startedDate" disabled>
+          </div>
+
+          <div class="form-group">
+            <label for="endedDate"><strong>Ended Date:</strong></label>
+            <input type="date" name="endedDate" th:value="${#dates.format(viewModel.endedDate, 'yyyy-MM-dd')}" class="form-control" id="endedDate" disabled>
+          </div>
+
+          <div class="form-group">
+            <label for="amountHT"><strong>Amount HT:</strong></label>
+            <input type="text" th:value="${viewModel.amountHT}" class="form-control" id="amountHT" step="0.01" min="0" disabled>
+          </div>
+
+          <div class="form-group">
+            <label for="amountTTC"><strong>Amount TTC:</strong></label>
+            <input type="text" th:value="${viewModel.amountTTC}" class="form-control" id="amountTTC" step="0.01" min="0" disabled>
+          </div>
+
+          <div>
+            <label for="paymentStatus"><strong>Payment Status:</strong></label>
+            <select id="paymentStatus" name="paymentStatus" th:value="*{paymentStatus}">
+              <th:block th:each="status : ${viewModel.statusList}">
+                <option th:value="${status}" th:text="${status}"></option>
+              </th:block>
+            </select>
+          </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>
