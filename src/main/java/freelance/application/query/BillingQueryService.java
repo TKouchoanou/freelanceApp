@@ -1,14 +1,17 @@
 package freelance.application.query;
 
 
+import freelance.application.query.model.File;
 import freelance.domain.core.objetValue.EmployeeRole;
 import freelance.application.query.annotation.RolesAllowed;
 import freelance.application.query.model.Billing;
 import freelance.application.query.model.BillingSummary;
 import freelance.application.query.query.SearchBillingQuery;
 
+import java.io.BufferedInputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 public interface BillingQueryService {
@@ -24,4 +27,5 @@ public interface BillingQueryService {
     Stream<Billing> searchBillingByCompany(Long companyId);
     @RolesAllowed(value = {EmployeeRole.ADMIN,EmployeeRole.HUMAN_RESOURCE,EmployeeRole.FINANCE})
     Stream<Billing> searchBilling(SearchBillingQuery query);
+    File loadBillingFile(Long id);
 }
